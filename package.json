@@ -1,0 +1,21 @@
+{
+  "name": "nodd",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "supervisor ./bin/www"
+  },
+  "dependencies": {
+    "express": "",
+	"serve-favicon": "",
+    "body-parser": "",
+    "cookie-parser": "",
+	"express-session": "",
+	"winston": "",
+	"pg": "",
+	"express-react-views": "",
+	"express-react-engine": "",
+	"react": "",
+	"react-dom": ""
+  }
+}
