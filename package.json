@@ -12,6 +12,7 @@
     "cookie-parser": "",
 	"express-session": "",
 	"winston": "",
+	"nconf": "",
 	"pg": "",
 	"express-react-views": "",
 	"express-react-engine": "",
