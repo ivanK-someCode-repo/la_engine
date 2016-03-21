@@ -7,12 +7,18 @@ var config = require('./config');
 
 var url = require('url');
 var favicon = require('serve-favicon');
+
+var ReactEngine = require('express-react-engine');
+
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
 
 app.set('port', config.get('port'));
+app.set('layouts', __dirname + '/layouts');
+app.engine('jsx', ReactEngine());
+
 log.level = 'debug';
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -27,7 +33,8 @@ app.use(function(req, res, next) {
   var urlObj = url.parse(req.url, true);
 
   if (urlObj.pathname == '/'){
-    res.send("Done");
+    res.render( app.get('layouts') + '/index.jsx', {title: 'taram' , foo: 'bar' });
+    //res.send("Done");
   }
   else{
     next();
