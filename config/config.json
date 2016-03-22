@@ -1,5 +1,10 @@
 {
   "port": 3000,
   "pg_cs":"postgres://postgres:ParPar52@localhost:5432/engin",
-  "env":"development"
+  "env":"development",
+  "jsx_engine":{
+    "options":{
+      "doctype":"<!DOCTYPE html>"
+    }
+  }
 }

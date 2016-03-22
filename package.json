@@ -14,8 +14,10 @@
 	"winston": "",
 	"nconf": "",
 	"pg": "",
+    "sequelize":"",
+    "mongodb":"",
+    "mongoose":"",
 	"express-react-views": "",
-	"express-react-engine": "",
 	"react": "",
 	"react-dom": ""
   }

@@ -1,24 +1,20 @@
 var React = require('react');
 
-var Html = React.createClass({
-  render: function () {
-    return (
-        <html>
-            <head>
-                <title>{this.props.title}</title>
-                <link rel='stylesheet' type='text/css' href='/stylesheets/style.css' />
-            </head>
-            <body>
-                <div id='view' dangerouslySetInnerHTML={{__html: this.props.foo}} />
-                Home html!
-            </body>
-        </html>
-    );
-  }
+var error = require('./error');
+var site = require('./site');
+var panel = require('./panes');
+
+var DefaultLayout = React.createClass({
+    render: function() {
+        return (
+            <html>
+            <head><title>{this.props.title}</title></head>
+            <body>{this.props.children}</body>
+            </html>
+        );
+    }
 });
 
-//<script type='application/json' dangerouslySetInnerHTML={{__html: JSON.stringify(this.props.props)}} />
-
-//<script src='/javascripts/bundle.js' />
-
-module.exports = Html;
+module.exports = function(page){
+    return Layout;
+};
