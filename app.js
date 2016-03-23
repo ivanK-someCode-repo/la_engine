@@ -14,9 +14,9 @@ var config = require('./config');
 var app = express();
 
 app.set('port', config.get('port'));
-app.set('layouts', __dirname + '/layouts');
+app.set('views', __dirname + '/layouts');
 app.set('view engine', 'jsx');
-app.engine('jsx', ReactEngine(config.get("jsx_engine:options")));
+app.engine('jsx', ReactEngine.createEngine(config.get("jsx_engine:options")));
 //app.engine('jsx', require('express-react-views').createEngine());
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -30,7 +30,7 @@ app.use(function(req, res, next) {
   var urlObj = url.parse(req.url, true);
 
   if (urlObj.pathname == '/'){
-    res.render( app.get('layouts') + '/site.jsx', {title: 'taram' , foo: 'bar' });
+    res.render( 'index.jsx', {title: 'taram' , frontRootComponentPath: config.get('frontRootPath'), page:'error' });
     //res.send("Done");
   }
   else{

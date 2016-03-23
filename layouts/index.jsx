@@ -1,20 +1,37 @@
 var React = require('react');
 
-var error = require('./error');
-var site = require('./site');
-var panel = require('./panes');
+var Error = require('./error');
+var Site = require('./site');
+var Panel = require('./admin-panel');
 
-var DefaultLayout = React.createClass({
+var Layout = React.createClass({
     render: function() {
+        var bodyContent = <Site/>;
+
+        if (this.props.page == 'error'){
+            bodyContent = <Error/>;
+        }
+
+        if (this.props.page == 'admin-panel'){
+            bodyContent = <Panel/>;
+        }
+
         return (
             <html>
-            <head><title>{this.props.title}</title></head>
-            <body>{this.props.children}</body>
+            <head>
+                <title>
+                    {this.props.title}
+                </title>
+            </head>
+
+            <body>
+            {bodyContent}
+            </body>
+
+            <script src={this.props.frontRootComponentPath}></script>
             </html>
         );
     }
 });
 
-module.exports = function(page){
-    return Layout;
-};
+module.exports = Layout;

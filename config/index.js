@@ -7,4 +7,6 @@ nconf.argv()
 
 nconf.set('faviconPath', path.join(__dirname, '../www/images/favicon.ico'));
 
+nconf.set('frontRootPath', path.join(__dirname, '../www/main.jsx'));
+
 module.exports = nconf;
