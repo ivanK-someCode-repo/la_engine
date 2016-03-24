@@ -25,9 +25,8 @@ http.createServer(app).listen(app.get('port'), function(){
 
 app.use(favicon(config.get('faviconPath')));
 
-
-var path = require('path');
-
+//пути статики для фронта будут относительно www и bower_components
+app.use(express.static('./bower_components'));
 app.use(express.static('./www'));
 
 app.use(function(req, res, next) {
@@ -35,7 +34,7 @@ app.use(function(req, res, next) {
   var urlObj = url.parse(req.url, true);
 
   if (urlObj.pathname == '/'){
-    res.render( 'index.jsx', {title: 'taram' , frontRootComponentPath: 'site/components/main.jsx', page:'site' });
+    res.render( 'index.jsx', {title: 'taram' , frontRootComponentPath: 'site/sources/index.jsx', page:'site' });
     //res.send("Done");
   }
   else{

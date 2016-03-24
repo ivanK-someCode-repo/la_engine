@@ -22,13 +22,14 @@ var Layout = React.createClass({
                     <title>
                         {this.props.title}
                     </title>
-                    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+                    <link rel="stylesheet" type="text/css" href="common/dist/style.css"/>
                 </head>
 
                 <body>
                     {bodyContent}
 
-                    <script src={this.props.frontRootComponentPath}></script>
+                    <script src="jquery/dist/jquery.min.js"></script>
+                    <script src="site/dist/app.js"></script>
                 </body>
             </html>
         );
