@@ -25,12 +25,17 @@ http.createServer(app).listen(app.get('port'), function(){
 
 app.use(favicon(config.get('faviconPath')));
 
+
+var path = require('path');
+
+app.use(express.static('./www'));
+
 app.use(function(req, res, next) {
   log.info("client connection");
   var urlObj = url.parse(req.url, true);
 
   if (urlObj.pathname == '/'){
-    res.render( 'index.jsx', {title: 'taram' , frontRootComponentPath: config.get('frontRootPath'), page:'error' });
+    res.render( 'index.jsx', {title: 'taram' , frontRootComponentPath: 'site/components/main.jsx', page:'site' });
     //res.send("Done");
   }
   else{

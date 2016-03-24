@@ -18,17 +18,18 @@ var Layout = React.createClass({
 
         return (
             <html>
-            <head>
-                <title>
-                    {this.props.title}
-                </title>
-            </head>
+                <head>
+                    <title>
+                        {this.props.title}
+                    </title>
+                    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+                </head>
 
-            <body>
-            {bodyContent}
-            </body>
+                <body>
+                    {bodyContent}
 
-            <script src={this.props.frontRootComponentPath}></script>
+                    <script src={this.props.frontRootComponentPath}></script>
+                </body>
             </html>
         );
     }

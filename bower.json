@@ -1,0 +1,22 @@
+{
+  "name": "nodd",
+  "description": "",
+  "main": "",
+  "authors": [
+    "iv"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2"
+  }
+}
