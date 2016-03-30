@@ -19,15 +19,18 @@ app.set('view engine', 'jsx');
 app.engine('jsx', ReactEngine.createEngine(config.get("jsx_engine:options")));
 //app.engine('jsx', require('express-react-views').createEngine());
 
-http.createServer(app).listen(app.get('port'), function(){
-  log.info('Express server listening on port ' + config.get('port'));
-});
-
 app.use(favicon(config.get('faviconPath')));
-
+app.use(express.methodOverride()); // поддержка put и delete
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 //пути статики для фронта будут относительно www и bower_components
 app.use(express.static('./bower_components'));
 app.use(express.static('./www'));
+
+http.createServer(app).listen(app.get('port'), function(){
+  log.info('Express server listening on port ' + config.get('port'));
+});
 
 app.use(function(req, res, next) {
   log.info("client connection");
@@ -40,6 +43,11 @@ app.use(function(req, res, next) {
   else{
     next();
   }
+});
+
+app.use(function(err, req, res, next){
+  log.info(err.stack);
+  next(err);
 });
 
 // catch 404 and 401 then forward to error handler
@@ -60,12 +68,21 @@ app.use(function(req, res, next) {
     next();
   }
 });
-
-app.use(function(err, req, res, next){
-  log.info(err.stack);
-  next(err);
+/*
+app.use(function(req, res, next){
+  res.status(404);
+  log.debug('Not found URL: %s',req.url);
+  res.send({ error: 'Not found' });
+  return;
 });
 
+app.use(function(err, req, res, next){
+  res.status(err.status || 500);
+  log.error('Internal error(%d): %s',res.statusCode,err.message);
+  res.send({ error: err.message });
+  return;
+});
+*/
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
 
@@ -84,9 +101,6 @@ app.use(function(err, req, res, next) {
 
 
 //app.use(logger('dev'));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 //var routes = require('./routes/index');

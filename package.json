@@ -24,14 +24,15 @@
     "express-react-views": "",
     "express-session": "",
     "mongodb": "",
-    "mongoose": "",
     "nconf": "",
     "pg": "",
-    "sequelize": "",
+	"pg-promise": "",
     "serve-favicon": "",
     "winston": "",
     "react": "",
     "react-dom": "",
+	"redux": "",
+	"react-redux": "",
     "history": "",
     "react-router": ""
   }
