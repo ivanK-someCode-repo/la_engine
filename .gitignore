@@ -2,3 +2,4 @@
 /bower_components/
 /back/config/
 /liquibase/run.bat
+/.idea/
