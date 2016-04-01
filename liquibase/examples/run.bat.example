@@ -1,0 +1,28 @@
+oracle:
+
+call "C:\Applications\liquibase\liquibase.bat" ^
+--defaultSchemaName=STROY ^
+--driver=oracle.jdbc.OracleDriver ^
+--classpath="C:\Applications\liquibase\drivers\ojdbc5.jar" ^
+--url=jdbc:oracle:thin:@192.168.191.129:1521:DB11G ^
+--username=stroy ^
+--password=stroy ^
+--changeLogFile=.\changelog\next.xml ^
+--logLevel=info ^
+update
+pause
+
+
+postgres:
+
+call "C:\liquibase\liquibase.bat" ^
+--defaultSchemaName=public ^
+--driver=org.postgresql.Driver ^
+--classpath="C:\liquibase\postgresql-9.4.1208.jre6.jar" ^
+--url=jdbc:postgresql://localhost:5432/engin ^
+--username=postgres ^
+--password=ParPar52 ^
+--changeLogFile=.\changelog\base.changelog.xml ^
+--logLevel=info ^
+update
+pause

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"/>
+
+  <changeSet author="ivan" id="01042016-1">
+    <sql>
+      CREATE TABLE Costs_Classifier
+      (
+      Id                  NUMBER (28) NOT NULL ,
+      Name                VARCHAR2 (256) NOT NULL ,
+      Code                VARCHAR2 (256) NOT NULL ,
+      Type                VARCHAR2 (256),
+
+      Costs_Classifier_Id NUMBER (28)
+      ) ;
+      ALTER TABLE Costs_Classifier ADD CONSTRAINT Costs_Classifier_PK PRIMARY KEY ( Id ) ;
+
+      ALTER TABLE Costs_Classifier ADD CONSTRAINT Costs_Classifier_FK FOREIGN KEY ( Costs_Classifier_Id ) REFERENCES Costs_Classifier ( Id ) ;
+    </sql>
+	<rollback>
+	
+	</rollback>
+  </changeSet>
+
+  <changeSet author="ivan" id="01042016-2">
+    <sql>
+      CREATE TABLE OKVED
+      (
+      Id        NUMBER (28) NOT NULL ,
+      Value     VARCHAR2 (64) NOT NULL ,
+
+      OKVED_Id  NUMBER (28)
+      ) ;
+      ALTER TABLE OKVED ADD CONSTRAINT OKVED_PK PRIMARY KEY ( Id ) ;
+
+      ALTER TABLE OKVED ADD CONSTRAINT OKVED_FK FOREIGN KEY ( OKVED_Id ) REFERENCES OKVED ( Id ) ;
+    </sql>
+	<rollback>
+	
+	</rollback>
+  </changeSet>
+  
+  <changeSet author="ivan" id="01042016-3">
+    <sql>
+      CREATE TABLE Title_OKVED
+      (
+      OKVED_Id       NUMBER (28) NOT NULL ,
+      Title_Id       NUMBER (28) NOT NULL ,
+      Last_Modified   DATE ,
+      Last_Modified_By NUMBER (28)
+      ) ;
+      ALTER TABLE Title_OKVED ADD CONSTRAINT Title_OKVED_PK PRIMARY KEY ( OKVED_Id, Title_Id ) ;
+
+      ALTER TABLE Title_OKVED ADD CONSTRAINT Title_OKVED_OKVED_FK FOREIGN KEY ( OKVED_Id ) REFERENCES OKVED ( Id ) ;
+
+      ALTER TABLE Title_OKVED ADD CONSTRAINT Title_OKVED_Title_FK FOREIGN KEY ( Title_Id ) REFERENCES Title ( Id ) ;
+    </sql>
+  </changeSet>
+
+  <changeSet author="ivan" id="01042016-4">
+    <sql>
+      ALTER TABLE Title_OKVED DROP CONSTRAINT Title_OKVED_PK;
+      ALTER TABLE Title_OKVED ADD (Id NUMBER (28) NOT NULL);
+      ALTER TABLE Title_OKVED ADD CONSTRAINT Title_OKVED_PK PRIMARY KEY ( Id ) ;
+    </sql>
+	<rollback>
+	
+	</rollback>
+  </changeSet>
+
+</databaseChangeLog>
