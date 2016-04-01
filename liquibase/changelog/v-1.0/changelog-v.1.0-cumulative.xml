@@ -15,7 +15,7 @@
 	
 	<include file="2016-04-01--01-items-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--02-items-specifies-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--02-properties-tab.xml" relativeToChangelogFile="true"/>
 	
 	<include file="2016-04-01--03-tags-tab.xml" relativeToChangelogFile="true"/>
 	
@@ -25,7 +25,7 @@
 	
 	<include file="2016-04-01--06-tags-types-tags-categories-categories-relation-tabs.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--07-items-tags-items-categories-items-specifies-relation-tabs.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--07-items-tags-items-categories-items-properties-relation-tabs.xml" relativeToChangelogFile="true"/>
 	
 	<include file="2016-04-01--08-users-tab.xml" relativeToChangelogFile="true"/>
 	

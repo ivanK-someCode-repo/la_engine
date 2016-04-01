@@ -27,10 +27,10 @@
 	
 	<changeSet author="ivan" id="01042016--03-3">
 		<sql>
-			ALTER TABLE items ADD COLUMN code INTEGER
+			ALTER TABLE tags ADD COLUMN code INTEGER
 		</sql>
 		<rollback>
-			ALTER TABLE items DROP COLUMN code
+			ALTER TABLE tags DROP COLUMN code
 		</rollback>
 	</changeSet>
   

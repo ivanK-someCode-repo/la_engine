@@ -45,7 +45,7 @@
 
 	<changeSet author="ivan" id="01042016--01-5">
 		<sql>
-			ALTER TABLE items ADD COLUMN price BIGINTEGER
+			ALTER TABLE items ADD COLUMN price BIGINT
 		</sql>
 		<rollback>
 			ALTER TABLE items DROP COLUMN price
