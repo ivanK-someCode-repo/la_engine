@@ -12,6 +12,9 @@ call "C:\Applications\liquibase\liquibase.bat" ^
 update
 pause
 
+when need to clear data base check sums 
++clearCheckSums
++update databasechangelog set md5sum=null where filename like '%db.changelog-next.xml';
 
 postgres:
 
@@ -24,5 +27,5 @@ call "C:\liquibase\liquibase.bat" ^
 --password=ParPar52 ^
 --changeLogFile=.\changelog\base.changelog.xml ^
 --logLevel=info ^
-update
+update или rollback tagname
 pause
