@@ -1,0 +1,16 @@
+#oracle:
+driver: oracle.jdbc.OracleDriver
+classpath: ojdbc5.jar
+url: jdbc:oracle:thin:@192.168.72.131:1521:DB11G
+username: SYSTEM
+password: oracle
+
+#postgres:
+driver: org.postgresql.Driver
+# Path matching wegas root; JDBC driver
+classpath=postgresql-9.4.1208.jre6.jar 
+url: jdbc:postgresql://localhost:5432/engin
+username: postgres
+password: ParPar52
+# default changelog to use, relative to classpath
+changeLogFile=db.changelog.xml

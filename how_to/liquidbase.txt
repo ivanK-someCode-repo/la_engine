@@ -1,14 +1,16 @@
+поставить postgres с официального сайта (в комплекте простенькая админка и дрова)
 http://www.postgresql.org/download/windows/
 
-https://jdbc.postgresql.org/download.html
+создать через pgAdmin базу engin (насчет новой схемы пока вопрос, нужно ли)
 
-http://www.liquibase.org/download/index.html
+https://jdbc.postgresql.org/download.html (JDBC4 Postgresql Driver, Version 9.4-1208)
+
+http://www.liquibase.org/download/index.html (папку можно кинуть куда удобно, хоть на диск С)
 
 https://github.com/Heigvd/Wegas/wiki/Using-Liquibase-and-DB-changes
 
-liquibase --url="jdbc:postgresql://localhost:5432/engin" --changeLogFile="chlg1.xml" --username=postgres --password=ParPar52  generateChangeLog
-
-поставить postgres с официального сайта (в комплекте простенькая админка и дрова)
+(опционально, если лога вообще нет
+liquibase --url="jdbc:postgresql://localhost:5432/engin" --changeLogFile="chlg1.xml" --username=postgres --password=ParPar52  generateChangeLog)
 
 liquibase.properties и  postgresql-9.4.1208.jre6.jar кинуть в папку ликвида, скачанную с www.liquibase.org
 
