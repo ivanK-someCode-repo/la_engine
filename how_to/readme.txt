@@ -15,7 +15,6 @@ npm i --save-dev ...)
 
 NODE_DEBUG "http net" node xxx.js - дебаг нода через консоль
 
-https://wiki.postgresql.org/wiki/Why_PostgreSQL_Instead_of_MySQL_2009
 
 bower init
 bower install --save jquery

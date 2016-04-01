@@ -8,8 +8,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ReactEngine = require('express-react-views');
 
-var log = require('./libs/log')(module);
-var config = require('./config');
+var log = require('./back/libs/log')(module);
+var config = require('./back/config');
 
 var app = express();
 
