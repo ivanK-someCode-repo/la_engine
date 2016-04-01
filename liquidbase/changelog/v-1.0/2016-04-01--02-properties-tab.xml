@@ -5,42 +5,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-  	<changeSet author="ivan" id="01042016--03-1">
+	<changeSet author="ivan" id="01042016--02-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS tags (
+			CREATE TABLE IF NOT EXISTS properties (
 				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE tags
+			DROP TABLE properties
 		</rollback>
 	</changeSet>
   
-	<changeSet author="ivan" id="01042016--03-2">
+	<changeSet author="ivan" id="01042016--02-2">
 		<sql>
-			ALTER TABLE tags ADD CONSTRAINT tags_pkey PRIMARY KEY (id)
+			ALTER TABLE properties ADD CONSTRAINT properties_pkey PRIMARY KEY (id)
 		</sql>
 		<rollback>
-			ALTER TABLE tags DROP CONSTRAINT tags_pkey
-		</rollback>
-	</changeSet>
-	
-	<changeSet author="ivan" id="01042016--03-3">
-		<sql>
-			ALTER TABLE items ADD COLUMN code INTEGER
-		</sql>
-		<rollback>
-			ALTER TABLE items DROP COLUMN code
-		</rollback>
-	</changeSet>
-  
-	<changeSet author="ivan" id="01042016--03-4">
-		<sql>
-			ALTER TABLE tags ADD COLUMN name VARCHAR(4000)
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP COLUMN name
+			ALTER TABLE properties DROP CONSTRAINT properties_pkey
 		</rollback>
 	</changeSet>
 
+	<changeSet author="ivan" id="01042016--02-3">
+		<sql>
+			ALTER TABLE properties ADD COLUMN props JSON
+		</sql>
+		<rollback>
+			ALTER TABLE properties DROP COLUMN props
+		</rollback>
+	</changeSet>
+  
 </databaseChangeLog>
