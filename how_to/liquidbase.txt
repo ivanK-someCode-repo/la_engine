@@ -13,3 +13,5 @@ liquibase.properties и  postgresql-9.4.1208.jre6.jar кинуть в папку ликвида, ска
 run.bat.example в папку ликвида, находящуюся в проекте, в ней же должны быть ченджлоги
 
 https://habrahabr.ru/post/179425/
+
+rollback version-1.0 вместо update для ролбэка

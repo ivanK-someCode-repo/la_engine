@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<!-- Also include the tagging itself as a changeSet... -->
+    <changeSet author="ivan" id="01042016-0">
+        <tagDatabase tag="version-0" />
+    </changeSet>
+	
+	<!-- version 1.0 starts here -->
+	<changeSet author="ivan" id="01042016-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS Items (
+				Id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE Items
+		</rollback>
+	</changeSet>
+  
+	<changeSet author="ivan" id="01042016-2">
+		<sql>
+			ALTER TABLE Items ADD CONSTRAINT items_pkey PRIMARY KEY (Id)
+		</sql>
+		<rollback>
+			ALTER TABLE Items DROP CONSTRAINT items_pkey
+		</rollback>
+	</changeSet>
+  
+	<changeSet author="ivan" id="01042016-3">
+		<sql>
+			ALTER TABLE Items ADD COLUMN Name varchar(4000)
+		</sql>
+		<rollback>
+			ALTER TABLE Items DROP COLUMN Name
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016-4">
+		<sql>
+			ALTER TABLE Items ADD COLUMN Cost bigint
+		</sql>
+		<rollback>
+			ALTER TABLE Items DROP COLUMN Cost
+		</rollback>
+	</changeSet>
+  
+</databaseChangeLog>

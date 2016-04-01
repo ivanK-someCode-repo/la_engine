@@ -2,11 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d27366df-dd44-49eb-8494-180f6be43317" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\how_to\todo.txt" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Ivan\Desktop\nodd\models\mongo\_init.js" afterPath="$PROJECT_DIR$/how_to/mongo_init.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/postgre/index.js" afterPath="$PROJECT_DIR$/models/postgre/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/how_to/readme.txt" afterPath="$PROJECT_DIR$/how_to/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\changelog\base.changelog.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\changelog\v-1.0\2016-04-01--01-init-tables.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\changelog\v-1.0\changelog-v.1.0-cumulative.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\clearChecksums.bat.example" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\liquibase.properties" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\next-01-10-2015.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\next-31-03-2015.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\next-admin.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\next-migration.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\examples\run.bat.example" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ivan\Desktop\nodd\liquibase\run.bat" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/how_to/liquidbase.txt" afterPath="$PROJECT_DIR$/how_to/liquidbase.txt" />
     </list>
     <ignored path="nodd.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -322,20 +329,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="mongo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="nodd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="nodd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liquibase" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
