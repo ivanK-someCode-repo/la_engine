@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<!-- Also include the tagging itself as a changeSet... -->
+    <changeSet author="ivan" id="01042016-0">
+        <tagDatabase tag="version-0" />
+    </changeSet>
+	
+	<!-- version 1.0 starts here -->
+	
+	<!-- items -->
+	<changeSet author="ivan" id="01042016-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS items (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE items
+		</rollback>
+	</changeSet>
+  
+	<changeSet author="ivan" id="01042016-2">
+		<sql>
+			ALTER TABLE items ADD CONSTRAINTEGER items_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE items DROP CONSTRAINTEGER items_pkey
+		</rollback>
+	</changeSet>
+  
+  	<changeSet author="ivan" id="01042016-3_1">
+		<sql>
+			ALTER TABLE items ADD COLUMN number INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE items DROP COLUMN number
+		</rollback>
+	</changeSet>
+  
+	<changeSet author="ivan" id="01042016-3_2">
+		<sql>
+			ALTER TABLE items ADD COLUMN name VARCHAR(4000)
+		</sql>
+		<rollback>
+			ALTER TABLE items DROP COLUMN name
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016-4">
+		<sql>
+			ALTER TABLE items ADD COLUMN price BIGINTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE items DROP COLUMN price
+		</rollback>
+	</changeSet>
+  
+	<!-- tags -->
+  	<changeSet author="ivan" id="01042016-5">
+		<sql>
+			CREATE TABLE IF NOT EXISTS tags (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags
+		</rollback>
+	</changeSet>
+  
+	<changeSet author="ivan" id="01042016-6">
+		<sql>
+			ALTER TABLE tags ADD CONSTRAINTEGER tags_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE tags DROP CONSTRAINTEGER tags_pkey
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-7_1">
+		<sql>
+			ALTER TABLE items ADD COLUMN number INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE items DROP COLUMN number
+		</rollback>
+	</changeSet>
+  
+	<changeSet author="ivan" id="01042016-7_2">
+		<sql>
+			ALTER TABLE tags ADD COLUMN name VARCHAR(4000)
+		</sql>
+		<rollback>
+			ALTER TABLE tags DROP COLUMN name
+		</rollback>
+	</changeSet>
+
+	<!-- tags_types -->
+	<changeSet author="ivan" id="01042016-8">
+		<sql>
+			CREATE TABLE IF NOT EXISTS tags_types (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags_types
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-9">
+		<sql>
+			ALTER TABLE tags_types ADD CONSTRAINTEGER tags_types_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types DROP CONSTRAINTEGER tags_types_pkey
+		</rollback>
+	</changeSet>
+	
+		<changeSet author="ivan" id="01042016-10">
+		<sql>
+			ALTER TABLE tags_types ADD COLUMN number INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types DROP COLUMN number
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-11">
+		<sql>
+			ALTER TABLE tags_types ADD COLUMN name VARCHAR(4000)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types DROP COLUMN name
+		</rollback>
+	</changeSet>
+  
+  	<!-- tags_types_tags -->
+	<changeSet author="ivan" id="01042016-12">
+		<sql>
+			CREATE TABLE IF NOT EXISTS tags_types_tags (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags_types_tags
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-13">
+		<sql>
+			ALTER TABLE tags_types_tags ADD CONSTRAINTEGER tags_types_tags_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP CONSTRAINTEGER tags_types_tags_pkey
+		</rollback>
+	</changeSet>
+	
+		<changeSet author="ivan" id="01042016-14">
+		<sql>
+			ALTER TABLE tags_types_tags ADD COLUMN tags_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP COLUMN tags_id
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-15">
+		<sql>
+			ALTER TABLE tags_types_tags ADD COLUMN tags_types_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP COLUMN tags_types_id
+		</rollback>
+	</changeSet>
+  
+  	<!-- categories -->
+	<changeSet author="ivan" id="01042016-8">
+		<sql>
+			CREATE TABLE IF NOT EXISTS tags_types (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags_types
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-9">
+		<sql>
+			ALTER TABLE tags_types ADD CONSTRAINTEGER tags_types_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types DROP CONSTRAINTEGER tags_types_pkey
+		</rollback>
+	</changeSet>
+	
+		<changeSet author="ivan" id="01042016-10">
+		<sql>
+			ALTER TABLE tags_types ADD COLUMN number INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types DROP COLUMN number
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-11">
+		<sql>
+			ALTER TABLE tags_types ADD COLUMN name VARCHAR(4000)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types DROP COLUMN name
+		</rollback>
+	</changeSet>
+  
+  	<!-- categories_inherit -->
+	<changeSet author="ivan" id="01042016-12">
+		<sql>
+			CREATE TABLE IF NOT EXISTS tags_types_tags (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags_types_tags
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-13">
+		<sql>
+			ALTER TABLE tags_types_tags ADD CONSTRAINTEGER tags_types_tags_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP CONSTRAINTEGER tags_types_tags_pkey
+		</rollback>
+	</changeSet>
+	
+		<changeSet author="ivan" id="01042016-14">
+		<sql>
+			ALTER TABLE tags_types_tags ADD COLUMN tags_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP COLUMN tags_id
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="ivan" id="01042016-15">
+		<sql>
+			ALTER TABLE tags_types_tags ADD COLUMN tags_types_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP COLUMN tags_types_id
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
