@@ -1,3 +1,5 @@
+'use strict';
+
 //todo: на входе в модуль объект соединения с базой (пример - модуль лога, там на входе объект модуля)
 // и callback-функция, в которую передаются, по канонам node, error и data
 
@@ -8,3 +10,18 @@
 //! lazy loading - если pg-модуль позволяет, ищем внешние ключи в базе на item и подгружаем по ним записи
 //на выходе имеем вызов callback c  error (общую обработку ошибок на проект потом напишем) и ответом от базы
 //который, соответственно, надо распарсить в объект
+
+var MODEL_TABLE = 'items';
+
+var modelItem = {
+    get: function(id){
+        return "select * from " + MODEL_TABLE + " where id = " + id;
+    },
+
+    delete: function(id){
+        return "delete from " + MODEL_TABLE + " where id = " + id;
+    }
+};
+
+module.exports = modelItem;
+
