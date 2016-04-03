@@ -27,11 +27,11 @@
 	
 	<include file="2016-04-01--07-items-tags-items-categories-items-properties-relation-tabs.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--08-users-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--08-customers-tab.xml" relativeToChangelogFile="true"/>
 	
 	<include file="2016-04-01--09-items-history-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--10-users-history-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--10-customers-history-tab.xml" relativeToChangelogFile="true"/>
 	
 	<include file="2016-04-01--11-app-preferences-tab.xml" relativeToChangelogFile="true"/>
 	
