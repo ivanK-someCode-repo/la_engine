@@ -1,26 +1,65 @@
 'use strict';
 
 //todo: импорт всех модулей из этой папки
-//через этот файл слои rest api и сервисов бэка будут вызывать модели (т.е. это точка входа в наш слой dao)
+//через этот файл слои rest api и сервисов бэка будут вызывать модели (т.е. это точка входа в слой dao)
 
-var pg = require('pg');
-var item = require('item');
+const pg = require('pg');
+const item = require('item');
 
-var connectionString = 'postgres://postgres:ParPar52@localhost:5432/engin';//process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
+const connectionString = 'postgres://postgres:ParPar52@localhost:5432/engin';//process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
 
-var client = new pg.Client(connectionString);
+const client = new pg.Client(connectionString);
 
 client.connect();
 
+/*
 var query = client.query("SELECT name FROM tab1;");
-
 query.on('end', function() {
     client.end();
 });
+*/
 
-var baseOperation = function(model){
-    if (model == "item")
-        return item; //надо навесить обертку над item для обращения к базе по строке
+class base {
+    constructor(model) {
+
+        for(let key in model){
+            if (!model.hasOwnProperty(key)){
+                continue;
+            }
+
+            this[key] = function(parameters){
+
+                return new Promise( function(resolve, reject){
+
+                    var query = client.query(model[key](parameters), function(err, result){
+                        if (err){
+                            reject(err);
+                        }
+
+                        resolve(result);
+                    });
+
+                    query.on('end', function() {
+                        client.end();
+                    });
+
+                }) ;
+            }
+        }
+    }
+}
+
+var baseOperation = function(modelName){
+
+    switch(modelName){
+        case 'item':
+            return new base();
+            break;
+        default:
+            return null;
+            break;
+    }
+
 };
 
 module.exports = baseOperation;

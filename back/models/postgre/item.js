@@ -15,11 +15,14 @@ var MODEL_TABLE = 'items';
 
 var modelItem = {
     get: function(id){
-        return "select * from " + MODEL_TABLE + " where id = " + id;
+        return `select * from
+            ${MODEL_TABLE}
+            where id =
+            ${id}`;
     },
 
     delete: function(id){
-        return "delete from " + MODEL_TABLE + " where id = " + id;
+        return `delete from ${MODEL_TABLE} where id = ${id}`;
     }
 };
 
