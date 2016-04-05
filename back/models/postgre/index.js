@@ -4,7 +4,6 @@
 //через этот файл слои rest api и сервисов бэка будут вызывать модели (т.е. это точка входа в слой dao)
 
 const pg = require('pg');
-const item = require('item');
 
 const connectionString = 'postgres://postgres:ParPar52@localhost:5432/engin';//process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
 
@@ -50,16 +49,9 @@ class base {
 }
 
 var baseOperation = function(modelName){
+    const sqlSource = require(modelName);
 
-    switch(modelName){
-        case 'item':
-            return new base();
-            break;
-        default:
-            return null;
-            break;
-    }
-
+    return new base(sqlSource);
 };
 
 module.exports = baseOperation;
