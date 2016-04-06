@@ -1,21 +1,21 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const log = require('../../libs/log')(module);
 
-var categoriesRouter = require('./categories');
+const categoriesRouter = require('./categories');
+const itemsRouter = require('./items');
 
 router.use(function(req, res, next) {
   // do logging
-  console.log('Something is happening.');
+  log.info('api root router has been called');
 
   next(); // make sure we go to the next routes and don't stop here
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:port/api)
-router.get('/', function(req, res) {
-  console.log('Something is happening.');
-  res.json({ message: 'ok!' });
-});
-
 router.use('/categories', categoriesRouter);
+router.use('/items', itemsRouter);
 
 module.exports = router;
+
+//https://habrahabr.ru/post/193458/
+//https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4

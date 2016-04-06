@@ -1,5 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const log = require('../../libs/log')(module);
+
+router.use(function(req, res, next) {
+    log.info('api items root router has been called');
+
+    next();
+});
 
 router.get('/', function(req, res) {
     res.json({ message: 'get ok' });
