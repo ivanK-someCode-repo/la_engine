@@ -1,23 +1,23 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/api/articles', function(req, res) {
+router.get('/', function(req, res) {
+    res.json({ message: 'ok!' });
+});
+
+router.post('/', function(req, res) {
     res.send('This is not implemented now');
 });
 
-router.post('/api/articles', function(req, res) {
+router.get('/:id', function(req, res) {
     res.send('This is not implemented now');
 });
 
-router.get('/api/articles/:id', function(req, res) {
+router.put('/:id', function (req, res){
     res.send('This is not implemented now');
 });
 
-router.put('/api/articles/:id', function (req, res){
-    res.send('This is not implemented now');
-});
-
-router.delete('/api/articles/:id', function (req, res){
+router.delete('/:id', function (req, res){
     res.send('This is not implemented now');
 });
 

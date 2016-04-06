@@ -10,6 +10,7 @@ var ReactEngine = require('express-react-views');
 
 var log = require('./back/libs/log')(module);
 var config = require('./back/config');
+var apiRouter = require('./back/routes/api');
 
 var app = express();
 
@@ -20,7 +21,7 @@ app.engine('jsx', ReactEngine.createEngine(config.get("jsx_engine:options")));
 //app.engine('jsx', require('express-react-views').createEngine());
 
 app.use(favicon(config.get('faviconPath')));
-app.use(express.methodOverride()); // поддержка put и delete
+//app.use(express.methodOverride()); // поддержка put и delete
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -99,6 +100,7 @@ app.use(function(err, req, res, next) {
   }
 });
 
+app.use('/api', apiRouter);
 
 //app.use(logger('dev'));
 //app.use(express.static(path.join(__dirname, 'public')));
