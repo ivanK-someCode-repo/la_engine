@@ -20,6 +20,8 @@ query.on('end', function() {
 class base {
     constructor(model) {
 
+        debugger;
+
         for(let key in model){
             if (!model.hasOwnProperty(key)){
                 continue;
@@ -48,7 +50,12 @@ class base {
 }
 
 const dbaseOperation = function(modelName){
+
+    debugger;
+
     const sqlSource = require('./'+modelName); //
+
+    debugger;
 
     return new base(sqlSource);
 };

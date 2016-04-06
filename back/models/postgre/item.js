@@ -15,6 +15,9 @@ var MODEL_TABLE = 'items';
 
 var modelItem = {
     get: function(id){
+
+        debugger;
+
         return `select * from
             ${MODEL_TABLE}
             where id =

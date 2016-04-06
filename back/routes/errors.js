@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const url = require('url');
 const log = require('../libs/log')(module);
+var config = require('../config');
 
 router.use(function(err, req, res, next){
     log.info(err.stack);
@@ -10,14 +12,20 @@ router.use(function(err, req, res, next){
 // catch 404 and 401 then forward to error handler
 router.use(function(req, res, next) {
     const urlObj = url.parse(req.url, true);
+    debugger;
+    //костыль
+    if (urlObj.pathname.indexOf('/api') > -1){
+        next();
+        return;
+    }
 
     if (urlObj.pathname == '/none'){
-        const err = new Error('Not Found');
+        let err = new Error('Not Found');
         err.status = 404;
         next(err);
     }
     else if(urlObj.pathname == '/denied'){
-        const err = new Error('Forbidden');
+        let err = new Error('Forbidden');
         err.status = 401;
         next(err);
     }
@@ -43,6 +51,15 @@ router.use(function(req, res, next) {
  */
 
 router.use(function(err, req, res, next) {
+    const urlObj = url.parse(req.url, true);
+    debugger;
+    //костыль
+    if (urlObj.pathname.indexOf('/api') > -1){
+        next();
+        return;
+    }
+
+
     res.status(err.status || 500);
 
     if (config.get('env') === 'development') {
