@@ -5,12 +5,12 @@
 //это: валидация данных из рест апи, любая безнес-логика, обращения к сторонним библиотекам
 
 class ItemServices {
-    constructor(modelMethod, parameters) {
+    constructor() {
 
     }
 
-    validateParameters(){
-
+    checkId(id){
+        return !isNaN(parseFloat(id)) && isFinite(id);
     }
 }
 

@@ -22,7 +22,18 @@ router.post('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-    res.send('This is not implemented now');
+    if (err)
+        res.send(err);
+
+    if (itemService.checkId(req.params.id))
+        res.send("invalid id");
+
+    itemModel.get(req.params.id).then(function onFulfilled(dbResult){
+        res.send("" + dbResult);
+    }, function onRejected(err){
+        res.send("" + err);
+    });
+    
 });
 
 router.put('/:id', function (req, res){

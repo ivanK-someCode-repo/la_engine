@@ -4,7 +4,8 @@
 //через этот файл слои rest api и сервисов бэка будут вызывать модели (т.е. это точка входа в слой dao)
 
 const pg = require('pg');
-const connectionString = 'postgres://postgres:ParPar52@localhost:5432/engin';//process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
+const connectionString = 'postgres://postgres:ParPar52@localhost:5432/engin';
+//process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
 const client = new pg.Client(connectionString);
 
 client.connect();
