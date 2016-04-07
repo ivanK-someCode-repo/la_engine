@@ -5,7 +5,7 @@ const router = express.Router();
 const log = require('../../libs/log')(module);
 
 const itemModel = require('../../models/postgre')('item');
-const itemService = require('../../services/item');
+const itemService = require('../../services/item')();
 
 router.use(function(err,req, res, next) {
     log.info('api items root router has been called');
@@ -23,14 +23,11 @@ router.post('/', function(err,req, res) {
     res.send('post ok');
 });
 
-router.get('/:id', function(err,req, res) {
+router.get('/:id', function(req, res) {
 
     debugger;
 
-    if (err)
-        res.send(err);
-
-    if (itemService.checkId(req.params.id))
+    if (!itemService.checkId(req.params.id))
         res.send("invalid id");
 
     //https://learn.javascript.ru/promise

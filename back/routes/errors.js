@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const url = require('url');
@@ -12,7 +14,7 @@ router.use(function(err, req, res, next){
 // catch 404 and 401 then forward to error handler
 router.use(function(req, res, next) {
     const urlObj = url.parse(req.url, true);
-    debugger;
+
     //костыль
     if (urlObj.pathname.indexOf('/api') > -1){
         next();

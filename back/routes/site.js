@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const url = require('url');
@@ -6,7 +8,7 @@ const log = require('../libs/log')(module);
 router.use(function(req, res, next) {
     log.info("client connection");
     const urlObj = url.parse(req.url, true);
-    debugger;
+
     //костыль
     if (urlObj.pathname.indexOf('/api') > -1){
         next();

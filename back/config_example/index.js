@@ -1,5 +1,7 @@
-var nconf = require('nconf');
-var path = require('path');
+'use strict';
+
+const nconf = require('nconf');
+const path = require('path');
 
 nconf.argv()
     .env()
