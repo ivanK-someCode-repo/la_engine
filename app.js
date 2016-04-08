@@ -8,9 +8,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var log = require('./back/libs/log')(module);
-var config = require('./back/config');
+var config = require('./back/config');/*
 var apiRouter = require('./back/routes/api');
-var appRouter = require('./back/routes');
+var appRouter = require('./back/routes');*/
 
 var app = express();
 
@@ -32,6 +32,7 @@ app.use(express.static('./www'));
 http.createServer(app).listen(app.get('port'), function(){
   log.info('Express server listening on port ' + config.get('port'));
 });
+/*
 
 app.use('/api', apiRouter); //порядок важен - так api-роуты будут обрабатываться раньше, чем все остальные
 app.use('/', appRouter);

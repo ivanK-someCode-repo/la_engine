@@ -3,3 +3,5 @@
 /back/config/
 /liquibase/run.bat
 /.idea/
+/engine.sublime-project
+/engine.sublime-workspace
