@@ -37,8 +37,8 @@ http.createServer(app).listen(app.get('port'), function(){
   log.info('Express server listening on port ' + config.get('port'));
 });
 
+app.use('/api', apiRouter); //порядок важен - так api-роуты будут обрабатываться раньше, чем все остальные
 app.use('/', appRouter);
-app.use('/api', apiRouter);
 
 //app.use(logger('dev'));
 //app.use(express.static(path.join(__dirname, 'public')));

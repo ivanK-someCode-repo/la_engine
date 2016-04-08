@@ -25,8 +25,6 @@ router.post('/', function(err,req, res) {
 
 router.get('/:id', function(req, res) {
 
-    debugger;
-
     if (!itemService.checkId(req.params.id))
         res.send("invalid id");
 
@@ -34,12 +32,8 @@ router.get('/:id', function(req, res) {
 
     itemModel.get(req.params.id).then(function onFulfilled(dbResult){
 
-        debugger;
-
         res.send("" + dbResult);
     }, function onRejected(err){
-
-        debugger;
 
         res.send("" + err);
     });

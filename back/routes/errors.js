@@ -54,13 +54,6 @@ router.use(function(req, res, next) {
 
 router.use(function(err, req, res, next) {
     const urlObj = url.parse(req.url, true);
-    debugger;
-    //костыль
-    if (urlObj.pathname.indexOf('/api') > -1){
-        next();
-        return;
-    }
-
 
     res.status(err.status || 500);
 
