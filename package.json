@@ -21,18 +21,12 @@
     "body-parser": "",
     "cookie-parser": "",
     "express": "",
-    "express-react-views": "",
     "express-session": "",
     "mongodb": "",   
     "pg": "",
 	"nconf": "",
     "serve-favicon": "",
     "winston": "",
-    "react": "",
-    "react-dom": "",
-	"redux": "",
-	"react-redux": "",
-    "history": "",
-    "react-router": ""
+    "angular2": ""
   }
 }

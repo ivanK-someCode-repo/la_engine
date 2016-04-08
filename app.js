@@ -6,7 +6,6 @@ var url = require('url');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var ReactEngine = require('express-react-views');
 
 var log = require('./back/libs/log')(module);
 var config = require('./back/config');
@@ -17,9 +16,6 @@ var app = express();
 
 app.set('port', config.get('port'));
 app.set('views', __dirname + '/layouts');
-app.set('view engine', 'jsx');
-app.engine('jsx', ReactEngine.createEngine(config.get("jsx_engine:options")));
-//app.engine('jsx', require('express-react-views').createEngine());
 
 app.use(favicon(config.get('faviconPath')));
 
