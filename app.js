@@ -15,18 +15,16 @@ var appRouter = require('./back/routes');
 var app = express();
 
 app.set('port', config.get('port'));
-app.set('views', __dirname + '/layouts');
+app.set('views', config.get('jsxEngine:layoutsDest'));
+app.set('view engine', config.get('jsxEngine:enginName'));
 
 app.use(favicon(config.get('faviconPath')));
 
-//middleware для парсинга входящих запросов
 //app.use(express.methodOverride()); // поддержка put и delete
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//пути статики для фронта будут относительно www и bower_components
-app.use(express.static('./bower_components'));
 app.use(express.static('./www'));
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -37,6 +35,5 @@ app.use('/api', apiRouter); //порядок важен - так api-роуты будут обрабатываться
 app.use('/', appRouter);
 
 //app.use(logger('dev'));
-//app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
