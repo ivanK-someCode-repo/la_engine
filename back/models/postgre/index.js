@@ -1,10 +1,10 @@
 'use strict';
 
-//todo: импорт всех модулей из этой папки
-//через этот файл слои rest api и сервисов бэка будут вызывать модели (т.е. это точка входа в слой dao)
+//todo: РёРјРїРѕСЂС‚ РІСЃРµС… РјРѕРґСѓР»РµР№ РёР· СЌС‚РѕР№ РїР°РїРєРё
+//С‡РµСЂРµР· СЌС‚РѕС‚ С„Р°Р№Р» СЃР»РѕРё rest api Рё СЃРµСЂРІРёСЃРѕРІ Р±СЌРєР° Р±СѓРґСѓС‚ РІС‹Р·С‹РІР°С‚СЊ РјРѕРґРµР»Рё (С‚.Рµ. СЌС‚Рѕ С‚РѕС‡РєР° РІС…РѕРґР° РІ СЃР»РѕР№ dao)
 
 const pg = require('pg');
-const connectionString = 'postgres://postgres:ParPar52@localhost:5432/engin';
+const connectionString = require('./config_bd');
 //process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
 const client = new pg.Client(connectionString);
 
@@ -49,11 +49,11 @@ class base {
     }
 }
 
-const dbaseOperation = function(modelName){
+const dbaseOperation = function(model){
 
     debugger;
 
-    const sqlSource = require('./'+modelName); //
+    const sqlSource = model; //
 
     debugger;
 
@@ -62,4 +62,4 @@ const dbaseOperation = function(modelName){
 
 module.exports = dbaseOperation;
 
-//в слое рест апи или сервисов: baseOperation("item").get(11)
+//РІ СЃР»РѕРµ СЂРµСЃС‚ Р°РїРё РёР»Рё СЃРµСЂРІРёСЃРѕРІ: baseOperation("item").get(11)

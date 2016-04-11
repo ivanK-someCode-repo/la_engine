@@ -10,7 +10,7 @@
 //! lazy loading - если pg-модуль позволяет, ищем внешние ключи в базе на item и подгружаем по ним записи
 //на выходе имеем вызов callback c  error (общую обработку ошибок на проект потом напишем) и ответом от базы
 //который, соответственно, надо распарсить в объект
-
+var dbItem = require('./index');
 var MODEL_TABLE = 'items';
 
 var modelItem = {
@@ -29,5 +29,5 @@ var modelItem = {
     }
 };
 
-module.exports = modelItem;
+module.exports = dbItem(modelItem);
 
