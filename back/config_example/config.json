@@ -2,9 +2,12 @@
   "port": 3000,
   "postgreConnectionString":"postgres://postgres:ParPar52@localhost:5432/engin",
   "env":"development",
-  "jsx_engine":{
+  "jsxEngine":{
     "options":{
       "doctype":"<!DOCTYPE html>"
-    }
-  }
+    },
+    "layoutsDest":"./back/layouts",
+    "enginName": "jade"
+  },
+  "faviconPath": "./www/common/images/favicon.ico"
 }
