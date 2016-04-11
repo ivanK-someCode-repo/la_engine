@@ -1,10 +1,12 @@
 'use strict';
 
+const config = require('../../config');
+
 //todo: импорт всех модулей из этой папки
 //через этот файл слои rest api и сервисов бэка будут вызывать модели (т.е. это точка входа в слой dao)
 
 const pg = require('pg');
-const connectionString = require('./config_bd');
+const connectionString = config.get('postgreConnectionString');
 //process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
 const client = new pg.Client(connectionString);
 
