@@ -18,15 +18,17 @@
     "vinyl-source-stream": ""
   },
   "dependencies": {
+    "angular2": "",
     "body-parser": "",
     "cookie-parser": "",
     "express": "",
     "express-session": "",
-    "mongodb": "",   
+    "jade": "^1.11.0",
+    "method-override": "^2.3.5",
+    "mongodb": "",
+    "nconf": "",
     "pg": "",
-	"nconf": "",
     "serve-favicon": "",
-    "winston": "",
-    "angular2": ""
+    "winston": ""
   }
 }

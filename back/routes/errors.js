@@ -6,20 +6,11 @@ const url = require('url');
 const log = require('../libs/log')(module);
 var config = require('../config');
 
-router.use(function(err, req, res, next){
-    log.info(err.stack);
-    next(err);
-});
-
 // catch 404 and 401 then forward to error handler
 router.use(function(req, res, next) {
     const urlObj = url.parse(req.url, true);
 
-    //костыль
-    if (urlObj.pathname.indexOf('/api') > -1){
-        next();
-        return;
-    }
+    debugger;
 
     if (urlObj.pathname == '/none'){
         let err = new Error('Not Found');
@@ -43,31 +34,6 @@ router.use(function(req, res, next) {
      res.send({ error: 'Not found' });
      return;
  });
-
- app.use(function(err, req, res, next){
-     res.status(err.status || 500);
-     log.error('Internal error(%d): %s',res.statusCode,err.message);
-     res.send({ error: err.message });
-     return;
- });
  */
-
-router.use(function(err, req, res, next) {
-    const urlObj = url.parse(req.url, true);
-
-    res.status(err.status || 500);
-
-    if (config.get('env') === 'development') {
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    }else{
-        res.render('error', {
-            message: err.message,
-            error: {}
-        });
-    }
-});
 
 module.exports = router;
