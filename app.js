@@ -10,7 +10,7 @@ const methodOverride = require('method-override');
 
 const log = require('./back/libs/log')(module);
 const config = require('./back/config');
-const apiRouter = require('./back/routes/api');
+const apiRouter = require('./back/controllers');
 const appRouter = require('./back/routes');
 
 const app = express();
