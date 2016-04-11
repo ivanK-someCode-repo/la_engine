@@ -1,32 +1,33 @@
 "use strct";
 
-var http = require('http');
-var express = require('express');
-var url = require('url');
-var favicon = require('serve-favicon');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const http = require('http');
+const express = require('express');
+const url = require('url');
+const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
-var log = require('./back/libs/log')(module);
-var config = require('./back/config');
-var apiRouter = require('./back/controllers');
-var appRouter = require('./back/routes');
+const log = require('./back/libs/log')(module);
+const config = require('./back/config');
+const apiRouter = require('./back/controllers');
+const appRouter = require('./back/routes');
 
-var app = express();
+const app = express();
 
 app.set('port', config.get('port'));
-app.set('views', __dirname + '/layouts');
+app.set('views', config.get('jsxEngine:layoutsDest'));
+app.set('view engine', config.get('jsxEngine:enginName'));
+app.set('view options', { basedir: config.get('jsxEngine:layoutsDest')});
+//app.locals.basedir = config.get('jsxEngine:layoutsDest');
 
 app.use(favicon(config.get('faviconPath')));
 
-//middleware для парсинга входящих запросов
-//app.use(express.methodOverride()); // поддержка put и delete
+app.use(methodOverride()); // поддержка put и delete
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//пути статики для фронта будут относительно www и bower_components
-app.use(express.static('./bower_components'));
 app.use(express.static('./www'));
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -36,7 +37,27 @@ http.createServer(app).listen(app.get('port'), function(){
 app.use('/api', apiRouter); //порядок важен - так api-роуты будут обрабатываться раньше, чем все остальные
 app.use('/', appRouter);
 
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  log.error('Internal error(%d): %s',res.statusCode,err.message);
+
+  if (config.get('env') === 'development') {
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  }else{
+    //res.send({ error: err.message });
+
+    res.render('error/index', {
+      error: {
+        number: err.status,
+        description: err.message
+      }
+    })
+  }
+});
+
 //app.use(logger('dev'));
-//app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
