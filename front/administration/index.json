@@ -1,0 +1,6 @@
+{
+  "vendorDependencies":{
+    "js":["lodash"],
+    "css":["pure"]
+  }
+}

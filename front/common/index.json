@@ -1,0 +1,6 @@
+{
+  "vendorDependencies":{
+    "js":["jquery"],
+    "css":["reset"]
+  }
+}
