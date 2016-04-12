@@ -30,6 +30,8 @@ router.get('/:id', function(req, res) {
 
     //https://learn.javascript.ru/promise
 
+    log.info('api get by id router has been called');
+
     itemModel.get(req.params.id).then(function onFulfilled(dbResult){
 
         res.send("" + dbResult);
