@@ -31,18 +31,29 @@ app.use('/api', apiRouter); //порядок важен - так api-роуты будут обрабатываться
 app.use('/', appRouter);
 
 //для ловли ошибок возможно пригодится https://github.com/btford/zone.js/
+//для /api нужно прописать отдельный миддлвэр, который не рендерит страницу error
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   log.error(`Internal error ${res.statusCode}: ${err.message}`);
+  //next.error();
+
+  if (res.headersSent) {
+    //делегирование в стандартные механизмы обработки ошибок в Express, если заголовки уже были отправлены клиенту
+    return next(err);
+  }
+
+  if (req.url.indexOf('api') > -1){
+    res.send({ error: err.message });
+  }
 
   if (config.get('env') === 'development') {
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.render('error/index', {
+      error: {
+        number: err.status,
+        description: err.message
+      }
+    })
   }else{
-    //res.send({ error: err.message });
-    debugger;
     res.render('error/index', {
       error: {
         number: err.status,
