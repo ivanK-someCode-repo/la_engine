@@ -7,7 +7,7 @@ const log = require('../libs/log')(module);
 const itemModel = require('../models/postgre/item');
 const itemService = require('../services/item')();
 
-router.use(function(err,req, res, next) {
+router.use(function(req, res, next) {
     log.info('api items root router has been called');
 
     next();
@@ -23,22 +23,37 @@ router.post('/', function(err,req, res) {
     res.send('post ok');
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', function(req, res, next) {
+
+    //if (req.params.id == 0) next('route');
 
     if (!itemService.checkId(req.params.id))
         res.send("invalid id");
 
     //https://learn.javascript.ru/promise
 
+    log.info('api get by id router has been called');
+
     itemModel.get(req.params.id).then(function onFulfilled(dbResult){
+
+        log.info('get answer from base');
 
         res.send("" + dbResult);
     }, function onRejected(err){
 
-        res.send("" + err);
+        next(err);
+
+        //res.send("" + err);
     });
 
 });
+
+/*
+router.get('/:id', function (req, res, next) {
+    console.log(req.params.id);
+    res.render('special');
+});
+*/
 
 router.put('/:id', function (err,req, res){
     res.send('This is not implemented now');
