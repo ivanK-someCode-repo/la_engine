@@ -21,6 +21,7 @@
     "angular2": "",
     "body-parser": "",
     "cookie-parser": "",
+    "domain": "0.0.1",
     "express": "",
     "express-session": "",
     "jade": "^1.11.0",
