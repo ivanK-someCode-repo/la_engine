@@ -1,55 +1,50 @@
 'use strict';
 
-var gulp = require('gulp');
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-var less = require('gulp-less');
-var cssnano = require('gulp-cssnano');
-var concat = require('gulp-concat');
-var merge = require('merge-stream');
+const gulp = require('gulp');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
+const less = require('gulp-less');
+const cssnano = require('gulp-cssnano');
+const concat = require('gulp-concat');
+const merge = require('merge-stream');
+var sourcemaps = require('gulp-sourcemaps');
 
-var dist = './www/site/dist';
+const dist = './www';
 
-var paths = {
-	scripts: ['./www/site/sources/scripts/**/*.js'],
-	less: './www/site/sources/styles/**/*.less',
-	css: './www/site/sources/styles/**/*.css'
+const paths = {
+	sections:{
+		administration: './front/administration/**/*.*',
+		site: './front/site/**/*.*',
+		common: './front/common/**/*.*'
+	},
+	typesPostfixes:{
+		js: 'es6',
+		css: 'less',
+		images: 'png',
+		vectors: 'svg'
+	}
 };
 
 gulp.task('styles', function() {
-	var lessFile = gulp.src(paths.less)
-		.pipe(less())
-		.pipe(concat('less-file.less'))
-	;
-	var cssFile = gulp.src(paths.css)
-		.pipe(concat('css-file.css'))
-	;
-	return merge(lessFile, cssFile)
-		.pipe(concat('app.css'))
-        .pipe(cssnano())
-        .pipe(gulp.dest(dist));
-	/*	
-    return gulp.src(paths.less)
-		.pipe(less())
-        .pipe(cssnano())
-        .pipe(gulp.dest('dist'));
-		*/
-});
+	let sectionsPathsKeys =  Object.keys(paths.sections);
 
-gulp.task('build', function () {
-	browserify({
-		entries: './www/site/sources/index.jsx',
-		extensions: ['.jsx'],
-		debug: true
-	})
-	.transform(babelify.configure({
-		presets: ["es2015", "react"]})
-	)
-	.bundle()
-	.pipe(source('app.js'))
-	.pipe(gulp.dest(dist));
+	for (let i = 0; i < sectionsPathsKeys.length; i++){
+		gulp.src(paths.sections[sectionsPathsKeys[i]].slice(0,-1) + paths.typesPostfixes.css)//, {base: sectionsPathsKeys[i]}
+			.on('data',function(file){
+				console.log(file.path);
+			})
+			.pipe(sourcemaps.init())
+				.pipe(less())
+				.pipe(concat('customs.css'))
+				.pipe(cssnano())
+			.pipe(sourcemaps.write())
+			.on('data',function(file){
+				console.log(file.path);
+			})
+			.pipe(gulp.dest(dist+'/'+sectionsPathsKeys[i]));
+	}
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['build', 'styles']);
+gulp.task('default', ['styles']);
