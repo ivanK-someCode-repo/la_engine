@@ -10,27 +10,65 @@ const concat = require('gulp-concat');
 const merge = require('merge-stream');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpIf = require('gulp-if');
-const del = require('gulp-del');
+const del = require('del');
+const rename = require('gulp-rename');
 const debug = require('gulp-debug');
-var jsonTransform = require('gulp-json-transform');
+const jsonTransform = require('gulp-json-transform');
 
-const dist = './www';
+const path = require('path');
+
+const dist = 'www';
 
 const paths = {
-	sections:{
-		administration: './front/administration/**/*.*',
-		site: './front/site/**/*.*',
-		common: './front/common/**/*.*'
-	},
-	typesPostfixes:{
-		js: 'es6',
-		css: 'less',
-		images: 'png',
-		vectors: 'svg'
-	}
+	sections:[
+		{
+			base: 'administration',
+			srcPath:'./front/administration/**/*.*'
+		},
+		{
+			base: 'site',
+			srcPath: './front/site/**/*.*'
+		},
+		{
+			base: 'common',
+			srcPath: './front/common/**/*.*'
+		}
+	]
 };
 
-gulp.task('styles', function() {
+const typesPostfixes = {
+	js: 'es6',
+	css: 'less',
+	assets: ['png', 'ico', 'svg']
+};
+
+gulp.task('clean', function() {
+	return del(dist + '/*');
+});
+
+gulp.task('assets', function(){
+	let dests = [],
+		i = 0;
+
+	for (; i < paths.sections.length; i++){
+		dests.push(paths.sections[i].srcPath.slice(0,-1) + `{${typesPostfixes.assets.join(',')}}`);
+	}
+
+	return gulp.src(dests, {base:'front'})
+		.pipe(rename(function(filepath) {
+			for (let i = 0; i < paths.sections.length; i++){
+				let pathSection = paths.sections.find(x => filepath.dirname.indexOf(x.base) > -1);
+
+				if (pathSection){
+					return filepath.dirname = path.join(pathSection.base, 'assets');
+				}
+			}
+		}))
+		.pipe(gulp.dest(dist));
+			//return file.cwd + '\\' + dist + '\\' + pathSection.base + '\\' + path.basename(file.path);
+});
+
+gulp.task('styles:vendor', function() {
 	let sectionsPathsKeys =  Object.keys(paths.sections);
 
 	for (let i = 0; i < sectionsPathsKeys.length; i++){
@@ -43,7 +81,7 @@ gulp.task('styles', function() {
 					foobar: data.foo + data.bar
 				};
 			}))
-			.pipe(gulp.dest('./dist/out/'));
+			.pipe(gulp.dest('./dist/out/'))
 			.pipe(sourcemaps.init())
 				.pipe(less())
 				.pipe(concat('customs.css'))
@@ -56,7 +94,7 @@ gulp.task('styles', function() {
 	}
 });
 
-gulp.task('vendor-styles', function() {
+gulp.task('styles:customs', function() {
 	let sectionsPathsKeys =  Object.keys(paths.sections);
 
 	for (let i = 0; i < sectionsPathsKeys.length; i++){
@@ -77,4 +115,4 @@ gulp.task('vendor-styles', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['styles']);
+gulp.task('default', gulp.series('clean', 'assets'));

@@ -10,26 +10,31 @@
     "babel-preset-react": "",
     "babelify": "",
     "browserify": "",
-    "gulp": "",
+    "del": "^2.2.0",
+    "gulp": "gulpjs/gulp#4.0",
     "gulp-concat": "",
     "gulp-cssnano": "",
+    "gulp-debug": "^2.1.2",
+    "gulp-if": "^2.0.0",
+    "gulp-json-transform": "^0.3.0",
     "gulp-less": "",
-    "gulp-sourcemaps": "^1.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "",
     "merge-stream": "",
     "vinyl-source-stream": ""
   },
   "dependencies": {
-    "angular2": "",
     "body-parser": "",
     "cookie-parser": "",
     "express": "",
     "express-session": "",
-    "jade": "*",
-    "method-override": "*",
+    "jade": "",
+    "method-override": "",
     "mongodb": "",
     "nconf": "",
     "pg": "",
     "serve-favicon": "",
-    "winston": ""
+    "winston": "",
+    "zone": ""
   }
 }
