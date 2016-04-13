@@ -1,6 +1,9 @@
 {
   "vendorDependencies":{
-    "js":["angular"],
-    "css":["bootstrap"]
+    "baseDir":"bower_components",
+    "modules":{
+      "js":["angular"],
+      "css":["bootstrap"]
+    }
   }
 }

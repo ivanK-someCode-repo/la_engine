@@ -1,6 +1,9 @@
 {
   "vendorDependencies":{
-    "js":["lodash"],
-    "css":["pure"]
+    "baseDir":"bower_components",
+    "modules":{
+      "js":["lodash"],
+      "css":["pure"]
+      }
   }
 }

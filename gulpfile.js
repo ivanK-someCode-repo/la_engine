@@ -38,7 +38,7 @@ const paths = {
 
 const typesPostfixes = {
 	js: 'es6',
-	css: 'less',
+	css: ['less', 'css'],
 	assets: ['png', 'ico', 'svg']
 };
 
@@ -47,10 +47,9 @@ gulp.task('clean', function() {
 });
 
 gulp.task('assets', function(){
-	let dests = [],
-		i = 0;
+	let dests = [];
 
-	for (; i < paths.sections.length; i++){
+	for (let i = 0; i < dests.length; i++){
 		dests.push(paths.sections[i].srcPath.slice(0,-1) + `{${typesPostfixes.assets.join(',')}}`);
 	}
 
@@ -69,50 +68,73 @@ gulp.task('assets', function(){
 });
 
 gulp.task('styles:vendor', function() {
-	let sectionsPathsKeys =  Object.keys(paths.sections);
+	let dests = [],
+		vendorsDeps = [];
 
-	for (let i = 0; i < sectionsPathsKeys.length; i++){
-		gulp.src(paths.sections[sectionsPathsKeys[i]].slice(0,-1) + "json")//, {base: sectionsPathsKeys[i]}
-			.on('data',function(file){
-				console.log(file.path);
-			})
-			.pipe(jsonTransform(function(data) {
-				return {
-					foobar: data.foo + data.bar
-				};
-			}))
-			.pipe(gulp.dest('./dist/out/'))
-			.pipe(sourcemaps.init())
-				.pipe(less())
-				.pipe(concat('customs.css'))
-				.pipe(cssnano())
-			.pipe(sourcemaps.write())
-			.on('data',function(file){
-				console.log(file.path);
-			})
-			.pipe(gulp.dest(dist+'/'+sectionsPathsKeys[i]));
+	for (let i = 0; i < paths.sections.length; i++){
+		dests.push(paths.sections[i].srcPath.slice(0,-1) + 'json');
 	}
+
+	return gulp.src(dests)//, {base: sectionsPathsKeys[i]}
+		.pipe(jsonTransform(function(data) {
+			vendorsDeps.push({
+				dir: data.vendorDependencies.baseDir,
+				names:[]
+			});
+
+			for (let i = 0; i < data.vendorDependencies.modules.css.length; i++){
+				vendorsDeps[vendorsDeps.length - 1].names.push(data.vendorDependencies.modules.css[i]);
+			}
+
+			return vendorsDeps;
+		}))
+
+		.on('data',function(file){
+			console.log(file.path);
+
+			console.log(vendorsDeps);
+		})
+
+		//.pipe(concat('vendor.css'))
+		//.pipe(cssnano())
+
+		.on('data',function(file){
+			console.log(file.path);
+		})
+
+		.pipe(gulp.dest(dist));
+
+
 });
 
 gulp.task('styles:customs', function() {
-	let sectionsPathsKeys =  Object.keys(paths.sections);
+	let dests = [];
 
-	for (let i = 0; i < sectionsPathsKeys.length; i++){
-		gulp.src(paths.sections[sectionsPathsKeys[i]].slice(0,-1) + paths.typesPostfixes.css)//, {base: sectionsPathsKeys[i]}
-			.on('data',function(file){
-				console.log(file.path);
-			})
-			.pipe(sourcemaps.init())
+	for (let i = 0; i < paths.sections.length; i++){
+		dests.push(paths.sections[i].srcPath.slice(0,-1) + `{${typesPostfixes.css.join(',')}}`);
+	}
+
+	return gulp.src(dests, {base:'front'})
+		.pipe(sourcemaps.init())
 			.pipe(less())
 			.pipe(concat('customs.css'))
 			.pipe(cssnano())
-			.pipe(sourcemaps.write())
-			.on('data',function(file){
-				console.log(file.path);
-			})
-			.pipe(gulp.dest(dist+'/'+sectionsPathsKeys[i]));
-	}
+		.pipe(sourcemaps.write())
+		.pipe(rename(function(filepath) {
+			for (let i = 0; i < paths.sections.length; i++){
+				console.log(filepath);
+				let pathSection = paths.sections.find(x => filepath.dirname.indexOf(x.base) > -1);
+				console.log(pathSection);//neesd two renames
+				if (pathSection){
+					console.log(path.join(pathSection.base, 'styles'));
+					return filepath.dirname = path.join(pathSection.base, 'styles');
+				}
+			}
+		}))
+		.pipe(gulp.dest(dist));
 });
+
+gulp.task('styles', gulp.parallel('styles:vendors'));
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', gulp.series('clean', 'assets'));

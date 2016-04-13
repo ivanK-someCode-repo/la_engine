@@ -1,6 +1,9 @@
 {
   "vendorDependencies":{
-    "js":["jquery"],
-    "css":["reset"]
+    "baseDir":"bower_components",
+      "modules":{
+      "js":["jquery"],
+      "css":["reset-css", "normalize-css"]
+    }
   }
 }
