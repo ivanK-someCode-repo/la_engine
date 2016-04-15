@@ -12,6 +12,7 @@
     "browserify": "",
     "del": "^2.2.0",
     "gulp": "gulpjs/gulp#4.0",
+    "gulp-add-src": "^0.2.0",
     "gulp-concat": "",
     "gulp-cssnano": "",
     "gulp-debug": "^2.1.2",

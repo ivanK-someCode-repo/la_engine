@@ -14,6 +14,7 @@ const del = require('del');
 const rename = require('gulp-rename');
 const debug = require('gulp-debug');
 const jsonTransform = require('gulp-json-transform');
+const addSrc = require('gulp-add-src');
 
 const path = require('path');
 
@@ -88,7 +89,7 @@ gulp.task('styles:vendor', function() {
 
 			return vendorsDeps;
 		}))
-
+		.pipe(addSrc('./front/site/**/*.*'))
 		.on('data',function(file){
 			console.log(file.path);
 
@@ -134,7 +135,7 @@ gulp.task('styles:customs', function() {
 		.pipe(gulp.dest(dist));
 });
 
-gulp.task('styles', gulp.parallel('styles:vendors'));
+//gulp.task('styles', gulp.parallel('styles:vendors'));
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', gulp.series('clean', 'assets'));
