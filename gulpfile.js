@@ -13,89 +13,43 @@ const gulpIf = require('gulp-if');
 const del = require('del');
 const rename = require('gulp-rename');
 const debug = require('gulp-debug');
-const jsonTransform = require('gulp-json-transform');
 const addSrc = require('gulp-add-src');
+
+//npm install -g "gulpjs/gulp-cli#4.0"
 
 const path = require('path');
 
 const dist = 'www';
 
-const paths = {
-	sections:[
-		{
-			base: 'administration',
-			srcPath:'./front/administration/**/*.*'
-		},
-		{
-			base: 'site',
-			srcPath: './front/site/**/*.*'
-		},
-		{
-			base: 'common',
-			srcPath: './front/common/**/*.*'
-		}
-	]
-};
+const paths = [
+	'./front/administration/**/*.*',
+	'./front/site/**/*.*',
+	'./front/common/**/*.*'
+];
 
-const typesPostfixes = {
-	js: 'es6',
-	css: ['less', 'css'],
-	assets: ['png', 'ico', 'svg']
+const pathForTypes = function(postfixes){
+	return paths.map(function(s){
+		return s.slice(0,-1) + postfixes;
+	});
 };
+//['png', 'ico', 'svg']
+//`{${postfix.join(',')}}`
 
 gulp.task('clean', function() {
 	return del(dist + '/*');
 });
 
 gulp.task('assets', function(){
-	let dests = [];
-
-	for (let i = 0; i < dests.length; i++){
-		dests.push(paths.sections[i].srcPath.slice(0,-1) + `{${typesPostfixes.assets.join(',')}}`);
-	}
-
-	return gulp.src(dests, {base:'front'})
+	return gulp.src(pathForTypes(`{${['png', 'ico', 'svg'].join(',')}}`), {base:'front'})
 		.pipe(rename(function(filepath) {
-			for (let i = 0; i < paths.sections.length; i++){
-				let pathSection = paths.sections.find(x => filepath.dirname.indexOf(x.base) > -1);
-
-				if (pathSection){
-					return filepath.dirname = path.join(pathSection.base, 'assets');
-				}
-			}
+			return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'assets');
 		}))
-		.pipe(gulp.dest(dist));
-			//return file.cwd + '\\' + dist + '\\' + pathSection.base + '\\' + path.basename(file.path);
+		.pipe(gulp.dest(path.join(dist, 'customs')));
 });
 
 gulp.task('styles:vendor', function() {
-	let dests = [],
-		vendorsDeps = [];
-
-	for (let i = 0; i < paths.sections.length; i++){
-		dests.push(paths.sections[i].srcPath.slice(0,-1) + 'json');
-	}
-
-	return gulp.src(dests)//, {base: sectionsPathsKeys[i]}
-		.pipe(jsonTransform(function(data) {
-			vendorsDeps.push({
-				dir: data.vendorDependencies.baseDir,
-				names:[]
-			});
-
-			for (let i = 0; i < data.vendorDependencies.modules.css.length; i++){
-				vendorsDeps[vendorsDeps.length - 1].names.push(data.vendorDependencies.modules.css[i]);
-			}
-
-			return vendorsDeps;
-		}))
-		.pipe(addSrc('./front/site/**/*.*'))
-		.on('data',function(file){
-			console.log(file.path);
-
-			console.log(vendorsDeps);
-		})
-
+	return gulp.src(paths)//, {base: sectionsPathsKeys[i]}
+		.pipe()
 		//.pipe(concat('vendor.css'))
 		//.pipe(cssnano())
 
@@ -109,28 +63,14 @@ gulp.task('styles:vendor', function() {
 });
 
 gulp.task('styles:customs', function() {
-	let dests = [];
-
-	for (let i = 0; i < paths.sections.length; i++){
-		dests.push(paths.sections[i].srcPath.slice(0,-1) + `{${typesPostfixes.css.join(',')}}`);
-	}
-
-	return gulp.src(dests, {base:'front'})
+	return gulp.src(paths, {base:'front'})
 		.pipe(sourcemaps.init())
 			.pipe(less())
 			.pipe(concat('customs.css'))
 			.pipe(cssnano())
 		.pipe(sourcemaps.write())
 		.pipe(rename(function(filepath) {
-			for (let i = 0; i < paths.sections.length; i++){
-				console.log(filepath);
-				let pathSection = paths.sections.find(x => filepath.dirname.indexOf(x.base) > -1);
-				console.log(pathSection);//neesd two renames
-				if (pathSection){
-					console.log(path.join(pathSection.base, 'styles'));
-					return filepath.dirname = path.join(pathSection.base, 'styles');
-				}
-			}
+			return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'styles');
 		}))
 		.pipe(gulp.dest(dist));
 });
