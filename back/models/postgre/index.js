@@ -20,8 +20,6 @@ client.connect(function(err){
 
 client.on('error', function(error) {
     console.log("pg connection error: " + error);
-
-
 });
 
 /*
@@ -42,7 +40,7 @@ class base {
             this[key] = function(parameters){
 
                 return new Promise( function(resolve, reject){
-
+                    //model[key](parameters) - sql - строка
                     client.query(model[key](parameters), function(err, result){
                         if (err){
                             reject(err);

@@ -1,8 +1,5 @@
 'use strict';
-
-//слой сервисов, index.js, скорее всего, в нем не нужно
-//нужно продумать удобный механизм вызова сервисов для обеспечения взаимодействия рест апи и модели
-//это: валидация данных из рест апи, любая безнес-логика, обращения к сторонним библиотекам
+const itemsModel = require('../models/postgre/items');
 
 class ItemServices {
     constructor() {
@@ -12,8 +9,11 @@ class ItemServices {
     checkId(id){
         return !isNaN(parseFloat(id)) && isFinite(id);
     }
+    getData(data)
+    {
+    	//первый уровень проверки
+	    return itemsModel.getData(data);
+    }
 }
 
-module.exports = function(){
-    return new ItemServices();
-};
+module.exports = new ItemServices();
