@@ -22,35 +22,25 @@ client.on('error', function(error) {
     console.log("pg connection error: " + error);
 });
 
-class dbItem{
-	constructor(strings = {})
-	{
-		// Ждем объект из минимум 4 строк
-		for (let key in strings)
-		{
-			this[key] = strings[key];
-		}
-	}
-	getData(params) //sqlGet
+function dbItem(argument) {
+	// body...
+}
+dbItem.prototype.getData = function(params) //sqlGet
 	{
 		const where = this.genWhere(params);
 		const sql = this.sqlGet + where;
-        return throwSql(sql);
-	}	
-	putData() //sqlCreate
-	{
-
-	}
-	postData() //sqlEdit
-	{
-
-	}
-	deleteData() //sqlDelete
-	{
-
-	}
-	genWhere(params)
-	{
+        return this.throwSql(sql);
+	};
+dbItem.prototype.putData = function(first_argument) {
+	// body...
+};
+dbItem.prototype.postData = function(first_argument) {
+	// body...
+};
+dbItem.prototype.deleteData = function(first_argument) {
+	// body...
+};
+dbItem.prototype.genWhere = function(params) {
 		let where = '', conditions = [];
 		// где-то здесь валидация 
 		for (let key in params)
@@ -59,18 +49,17 @@ class dbItem{
 		}
 		// and - временное решение, потом будет выбор and / or
 		return conditions.length ? ` where ${conditions.join(' and ')}` : '';
-	}
-	throwSql(sql)
+};
+dbItem.prototype.throwSql = function(sql)
 	{
 		return new Promise( function(resolve, reject){
-            client.query(sql), function(err, result){
+            client.query(sql, function(err, result){
                 if (err){
                     reject(err);
                 }
                 resolve(result);
             });
         }) 
-	}
-}
+	};
 
-export default dbItem;
+module.exports = dbItem;

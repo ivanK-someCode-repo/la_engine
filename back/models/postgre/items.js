@@ -1,14 +1,11 @@
-import dbItem from './dbItem';
-var sql = 
-{
-	sqlGet: 'select * from items'
-};
 
-class Items extends dbItem{
-	constructor(strings)
+const dbItem = require('./dbItem');
+function Items() {
+	this.sql = 
 	{
-		super(strings);
-	}
+		sqlGet: 'select * from items'
+	};
 }
-
-export new Items(sql);
+Items.prototype = Object.create(dbItem.prototype);
+Items.prototype.constructor = Items;
+module.exports =  new Items();
