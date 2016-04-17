@@ -15,6 +15,9 @@ const rename = require('gulp-rename');
 const debug = require('gulp-debug');
 const addSrc = require('gulp-add-src');
 
+var concatCss = require('gulp-concat-css');
+const log = require('gulp-filelog');
+
 //npm install -g "gulpjs/gulp-cli#4.0"
 
 const path = require('path');
@@ -63,19 +66,37 @@ gulp.task('styles:vendor', function() {
 });
 
 gulp.task('styles:customs', function() {
-	return gulp.src(paths, {base:'front'})
+	let pathBase = '';
+	return gulp.src(pathForTypes('less'), {base:'front'})
 		.pipe(sourcemaps.init())
 			.pipe(less())
-			.pipe(concat('customs.css'))
+			/*.on('data',function(file){
+				pathBase = file.path.split(path.sep);
+				console.log(file.path.split(path.sep));
+			})*/
+			.pipe(rename(function(filepath) {
+				console.log(filepath.dirname.split(path.sep)[0]);
+				pathBase = filepath.dirname.split(path.sep)[0];
+				return filepath.dirname = filepath.dirname.split(path.sep)[0];
+			}))
+			.on('data',function(file){
+				//pathBase = file.path.split(path.sep);
+				console.log(file.path);
+				console.log(pathBase);
+			})
+			.pipe(concatCss(pathBase + 'main.css'))
+			/*.on('data',function(file){
+				console.log(file.path);
+				console.log(pathBase);
+			})*/
 			.pipe(cssnano())
 		.pipe(sourcemaps.write())
-		.pipe(rename(function(filepath) {
-			return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'styles');
-		}))
-		.pipe(gulp.dest(dist));
+		.pipe(gulp.dest(path.join(dist, 'customs')));
 });
 
-//gulp.task('styles', gulp.parallel('styles:vendors'));
+//http://stackoverflow.com/questions/23096103/is-there-a-way-to-dynamically-set-src-and-dest-in-gulpfile-js
+
+//gulp.task('styles', gulp.parallel('styles:vendors', 'styles:customs'));
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', gulp.series('clean', 'assets'));
+gulp.task('default', gulp.series('clean', gulp.parallel('styles:customs','assets')));
