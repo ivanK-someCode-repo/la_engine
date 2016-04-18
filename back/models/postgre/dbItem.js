@@ -52,6 +52,7 @@ dbItem.prototype.genWhere = function(params) {
 };
 dbItem.prototype.throwSql = function(sql)
 	{
+        debugger;
 		return new Promise( function(resolve, reject){
             client.query(sql, function(err, result){
                 if (err){
@@ -62,4 +63,11 @@ dbItem.prototype.throwSql = function(sql)
         }) 
 	};
 
-module.exports = dbItem;
+
+class ggg{
+    constructor(a){
+        this.a = a;
+    }
+}
+
+module.exports = ggg;
