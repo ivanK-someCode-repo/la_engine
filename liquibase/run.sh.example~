@@ -1,0 +1,12 @@
+#!/bin/sh
+java -jar /home/ivan/Desktop/liquid/liquibase.jar
+--defaultSchemaName=public  \
+--driver=org.postgresql.Drive \
+--classpath=/home/ivan/Desktop/liquid/postgresql-9.4.1208.jre6.jar \
+--changeLogFile="./changelog/base.changelog.xml" \
+--url=jdbc:postgresql://localhost:5432/engin \
+--username=postgres \
+--password=pg1 \
+--logLevel=info ^
+update
+pause
