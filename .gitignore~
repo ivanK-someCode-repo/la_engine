@@ -2,7 +2,6 @@
 /bower_components/
 /back/config/
 /liquibase/run.bat
-/liquibase/run.sh
 /.idea/
 /www/
 /engine.sublime-project
