@@ -23,11 +23,12 @@ const log = require('gulp-filelog');
 const path = require('path');
 
 const dist = 'www';
+const srcBase = 'front';
 
 const paths = [
-	'./front/administration/**/*.*',
-	'./front/site/**/*.*',
-	'./front/common/**/*.*'
+	`./${srcBase}/administration/**/*.*`,
+	`./${srcBase}/site/**/*.*`,
+	`./${srcBase}/common/**/*.*`
 ];
 
 const pathForTypes = function(postfixes){
@@ -43,10 +44,12 @@ gulp.task('clean', function() {
 });
 
 gulp.task('assets', function(){
-	return gulp.src(pathForTypes(`{${['png', 'ico', 'svg'].join(',')}}`), {base:'front'})
+	return gulp.src(pathForTypes(`{${['png', 'ico', 'svg'].join(',')}}`), {base: srcBase})
+		.pipe(debug('src'))
 		.pipe(rename(function(filepath) {
 			return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'assets');
 		}))
+		.pipe(debug('rename'))
 		.pipe(gulp.dest(path.join(dist, 'customs')));
 });
 
@@ -67,7 +70,7 @@ gulp.task('styles:vendor', function() {
 
 gulp.task('styles:customs', function() {
 	let pathBase = '';
-	return gulp.src(pathForTypes('less'), {base:'front'})
+	return gulp.src(pathForTypes('less'), {base: srcBase})
 		.pipe(sourcemaps.init())
 			.pipe(less())
 			/*.on('data',function(file){
