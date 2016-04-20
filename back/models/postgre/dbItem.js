@@ -22,25 +22,30 @@ client.on('error', function(error) {
     console.log("pg connection error: " + error);
 });
 
-function dbItem(argument) {
-	// body...
-}
-dbItem.prototype.getData = function(params) //sqlGet
+class dbItem{
+	constructor()
+	{
+	}
+	getData(params) //sqlGet
 	{
 		const where = this.genWhere(params);
-		const sql = this.sqlGet + where;
+		const sql = this.sql.sqlGet + where;
         return this.throwSql(sql);
-	};
-dbItem.prototype.putData = function(first_argument) {
-	// body...
-};
-dbItem.prototype.postData = function(first_argument) {
-	// body...
-};
-dbItem.prototype.deleteData = function(first_argument) {
-	// body...
-};
-dbItem.prototype.genWhere = function(params) {
+	}	
+	putData() //sqlCreate
+	{
+
+	}
+	postData() //sqlEdit
+	{
+
+	}
+	deleteData() //sqlDelete
+	{
+
+	}
+	genWhere(params)
+	{
 		let where = '', conditions = [];
 		// где-то здесь валидация 
 		for (let key in params)
@@ -49,10 +54,9 @@ dbItem.prototype.genWhere = function(params) {
 		}
 		// and - временное решение, потом будет выбор and / or
 		return conditions.length ? ` where ${conditions.join(' and ')}` : '';
-};
-dbItem.prototype.throwSql = function(sql)
+	}
+	throwSql(sql)
 	{
-        debugger;
 		return new Promise( function(resolve, reject){
             client.query(sql, function(err, result){
                 if (err){
@@ -61,13 +65,8 @@ dbItem.prototype.throwSql = function(sql)
                 resolve(result);
             });
         }) 
-	};
-
-
-class ggg{
-    constructor(a){
-        this.a = a;
-    }
+	}
 }
 
-module.exports = ggg;
+
+module.exports = dbItem;
