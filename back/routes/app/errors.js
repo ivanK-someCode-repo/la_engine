@@ -3,8 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const url = require('url');
-const log = require('../libs/log')(module);
-var config = require('../config');
+const log = require('../../libs/log')(module);
+var config = require('../../config');
 
 // catch 404 and 401 then forward to error handler
 router.use(function(req, res, next) {

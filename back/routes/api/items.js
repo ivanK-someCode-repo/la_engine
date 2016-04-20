@@ -2,10 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
-const log = require('../libs/log')(module);
+const log = require('../../libs/log')(module);
 
-const itemModel = require('../models/postgre/item');
-const itemService = require('../services/item')();
+const itemModel = require('../../models/postgre/item');
+const itemService = require('../../services/item')();
 
 router.use(function(req, res, next) {
     log.info('api items root router has been called');
