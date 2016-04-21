@@ -33,10 +33,18 @@ class BOOLEANfield extends FIELD {
 
 
 const FIELDS = {
-	STRING: STRINGfield, 
-	INT: INTfield,
-	FLOAT: FLOATfield,
-	BOOLEAN: BOOLEANfield // 0/1
+	STRING: function () {
+		return new STRINGfield(arguments)
+	},
+	INT: function () {
+		return new INTfield(arguments)
+	},
+	FLOAT: function () {
+		return new FLOATfield(arguments)
+	},
+	BOOLEAN: function () {
+		return new BOOLEANfield(arguments)
+	}
 };
 
 // проверка. Например, что целое число  - это целое число. 

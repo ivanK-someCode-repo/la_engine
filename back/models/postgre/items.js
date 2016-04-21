@@ -2,11 +2,11 @@
 const dbItem = require('./dbItem');
 const FIELDS = require('./fields');
 const __fields = {
-	id: new FIELDS.INT(),
-	code: new FIELDS.INT(),
-	name: new FIELDS.STRING(4000).required(),
-	price: new FIELDS.INT()
-}
+	id: FIELDS.INT(),
+	code: FIELDS.INT(),
+	name: FIELDS.STRING(4000).required(),
+	price: FIELDS.INT()
+};
 class Items extends dbItem{
 	constructor()
 	{
