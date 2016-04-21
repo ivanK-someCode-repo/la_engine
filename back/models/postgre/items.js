@@ -11,6 +11,7 @@ class Items extends dbItem{
 	constructor()
 	{
 		super();
+		this.fields = __fields;
 		this.sql = 
 		{
 			sqlGet: 'select * from items'
