@@ -4,6 +4,7 @@
 /liquibase/run.bat
 /liquibase/run.sh
 /.idea/
+/manifest.json
 /www/
 /engine.sublime-project
 /engine.sublime-workspace

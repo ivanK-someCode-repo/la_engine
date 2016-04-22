@@ -44,6 +44,7 @@
     "nconf": "",
     "pg": "",
     "serve-favicon": "",
+    "slash": "^1.0.0",
     "winston": "",
     "zone": ""
   }

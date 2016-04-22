@@ -1,6 +1,6 @@
-for href in books
-    li= book
+for key in manifest
+    li= key
 else
     li sorry, no books!
 
-link(rel="stylesheet", type="text/css", href="./site/styles/styles.css")
+link(rel="stylesheet", type="text/css", href="/#{manifest.customs.site.css.main}")

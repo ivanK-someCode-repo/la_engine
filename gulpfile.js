@@ -27,6 +27,8 @@ const path = require('path');
 const fs = require('fs');
 const vinylFsFile = require('vinyl');
 
+const slash = require('slash');
+
 const DIST = 'www';
 const SRC_BASE = 'front';
 const BOWER_SCR = 'bower_components';
@@ -41,11 +43,26 @@ let manifest = {
 
 	}
 };
-/*
- 'css':{},
- 'js':{},
- 'assets':{}
-*/
+
+gulp.task('manifest', function() {
+	return gulp.src('./', {read: false})
+		.pipe(through2(
+			function(file, encod, callback){
+				callback(); //when no need to send file toward to streams
+			},
+			function(callback){
+				let manifestFile = new vinylFsFile({
+					contents: new Buffer(JSON.stringify(manifest)),
+					base: process.cwd(),
+					path: process.cwd() + '/manifest.json'
+				})
+
+				this.push(manifestFile); //when append new file to stream
+
+				callback();
+			}))
+	.pipe(gulp.dest(path.join('./')))
+});
 
 gulp.task('clean', function() {
 	return del(DIST + '/*');
@@ -53,45 +70,41 @@ gulp.task('clean', function() {
 
 gulp.task('assets', function(){
 	return gulp.src(`./${SRC_BASE}/**/*.{${['png', 'svg', 'ico'].join(',')}}`, {since: gulp.lastRun('assets')})
-			//.pipe(debug({title:'assets'}))
-		.pipe(newer(path.join(DIST, 'customs'))) //check files change date
-			//.pipe(debug({title:'assets'}))
-		.pipe(through2(function(file, encod, callback){
+				//.pipe(debug({title:'assets'}))
+			.pipe(newer(path.join(DIST, 'customs'))) //check files change date
+				//.pipe(debug({title:'assets'}))
+			.pipe(rename(function(filepath) {
+				return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'assets');
+			}))
+			.pipe(through2(function(file, encod, callback){
 
-			console.log(file);
+				console.log(path.join(DIST, 'customs', file.relative));
+				console.log(file.basename);
+				console.log(file.stem);
+				console.log(file.relative);
 
-			console.log(file.path);
+				if (! manifest.customs){
+					manifest.customs = {};
+				}
 
-			console.log(file.path.basedir);
+				if (! manifest.customs[file.relative.split(path.sep)[0]]){
+					manifest.customs[file.relative.split(path.sep)[0]] = {};
+				}
 
-			//manifest.customs['basepath'].assets['namepath'] = path.join(DIST, 'customs', path.join(filepath.dirname.split(path.sep)[0], 'assets'))
+				if (! manifest.customs[file.relative.split(path.sep)[0]].assets){
+					manifest.customs[file.relative.split(path.sep)[0]].assets = {};
+				}
 
-			//file.path += '.min.';
+				manifest.customs[file.relative.split(path.sep)[0]].assets[file.stem]
+					= slash(path.join('./', 'customs', file.relative));
 
-			//if (err){
-			//	callback(new Error(''), null, file);
-			//}
+				//file.path += '.min.';
+				//if (err){
+				//	callback(new Error(''), null, file);
+				//}
 
-			//this.push(); //when append new file to stream
-
-			//callback(); //when no need to send file toward to streams
-
-			callback(null, file);
-		}/*, function(callback){ //second throudh2 argument, called when 'end' stream event fires
-			//create file object
-			let manifest = new vinylFsFile({
-				contents = new Buffer(JSON.stringify(manifest)),
-				base: process.cwd(),
-				path: process.cwd() + 'manifest.json'
-			})
-
-			this.push(manifest);
-
-			callback();
-		})*/))
-		.pipe(rename(function(filepath) {
-			return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'assets');
-		}))
+				callback(null, file);
+			}))
 		.pipe(gulp.dest(path.join(DIST, 'customs')));
 });
 
@@ -104,7 +117,28 @@ gulp.task('styles:vendor', function() {
 					return filepath.dirname = '.';// = path.join(filepath.dirname.split(path.sep)[0]);
 				}))
 				.pipe(cssnano())
-				.pipe(gulp.dest(path.join(DIST, 'vendor')));
+				.pipe(through2(function(file, encod, callback){
+
+					console.log(path.join(DIST, 'vendor', file.relative));
+					console.log(file.basename);
+					console.log(file.stem);
+					console.log(file.relative);
+
+					if (! manifest.vendor){
+						manifest.vendor = {};
+					}
+
+					if (! manifest.vendor.css){
+						manifest.vendor.css = {};
+					}
+
+					manifest.vendor.css[file.stem] = slash(path.join('./', 'vendor', file.relative));
+
+					console.log(manifest);
+
+					callback(null, file);
+				}))
+			.pipe(gulp.dest(path.join(DIST, 'vendor')));
 });
 
 gulp.task('styles:customs', function(callback) {
@@ -118,11 +152,36 @@ gulp.task('styles:customs', function(callback) {
 			.pipe(remember(`styles:customs:${i}`)) //add to stream files that where been ignored by gulp.lastRun
 			.pipe(gulpIf(isDevelopment, sourcemaps.init()))
 				.pipe(less())
-				.pipe(concatCss(path.join(projectSectionsNames[i], 'main.css')))
+				.pipe(concatCss(path.join(projectSectionsNames[i], 'css', 'main.css')))
 			.pipe(gulpIf(isDevelopment, sourcemaps.write('.')))
 			.pipe(cssnano())
 			.pipe(gulp.dest(path.join(DIST, 'customs')))
-		.pipe(rev.manifest('css'+i+'.json'))
+			.pipe(through2(function(file, encod, callback){
+
+				console.log(path.join(DIST, 'customs', file.relative));
+				console.log(file.basename);
+				console.log(file.stem);
+				console.log(file.relative);
+
+				if (! manifest.customs){
+					manifest.customs = {};
+				}
+
+				if (! manifest.customs[file.relative.split(path.sep)[0]]){
+					manifest.customs[file.relative.split(path.sep)[0]] = {};
+				}
+
+				if (! manifest.customs[file.relative.split(path.sep)[0]].css){
+					manifest.customs[file.relative.split(path.sep)[0]].css = {};
+				}
+
+				manifest.customs[file.relative.split(path.sep)[0]].css['main']
+					= slash(path.join('./', 'customs', file.relative));
+
+				console.log(manifest);
+
+				callback(null, file);
+			}))
 		.pipe(gulp.dest('./manifest'));
 	}
 
@@ -131,7 +190,8 @@ gulp.task('styles:customs', function(callback) {
 
 gulp.task('build', gulp.series(
 						'clean',
-						gulp.parallel('styles:customs', 'styles:vendor', 'assets')));
+						gulp.parallel('styles:customs', 'styles:vendor', 'assets'),
+						'manifest'));
 
 gulp.task('watch', function(){
 	gulp.watch(`./${SRC_BASE}/**/*.less`, gulp.series('styles:customs')).on('unlink', function(filepath){
