@@ -9,5 +9,5 @@
     "layoutsDest":"./back/layouts",
     "enginName": "jade"
   },
-  "faviconPath": "./front/favicon.ico"
+  "faviconPath": "./favicon.ico"
 }

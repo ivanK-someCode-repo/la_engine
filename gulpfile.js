@@ -21,15 +21,31 @@ const newer = require('gulp-newer');
 const remember = require('gulp-remember');
 const rev = require('gulp-rev');
 const browsersync = require('browser-sync').create();
-const through2 = require('through2');
+const through2 = require('through2').obj;
 //npm install -g "gulpjs/gulp-cli#4.0"
 const path = require('path');
 const fs = require('fs');
+const vinylFsFile = require('vinyl');
 
 const DIST = 'www';
 const SRC_BASE = 'front';
 const BOWER_SCR = 'bower_components';
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
+
+let manifest = {
+	'vendor':{
+		'css':{},
+		'js':{}
+	},
+	'customs':{
+
+	}
+};
+/*
+ 'css':{},
+ 'js':{},
+ 'assets':{}
+*/
 
 gulp.task('clean', function() {
 	return del(DIST + '/*');
@@ -40,9 +56,42 @@ gulp.task('assets', function(){
 			//.pipe(debug({title:'assets'}))
 		.pipe(newer(path.join(DIST, 'customs'))) //check files change date
 			//.pipe(debug({title:'assets'}))
+		.pipe(through2(function(file, encod, callback){
+
+			console.log(file);
+
+			console.log(file.path);
+
+			console.log(file.path.basedir);
+
+			//manifest.customs['basepath'].assets['namepath'] = path.join(DIST, 'customs', path.join(filepath.dirname.split(path.sep)[0], 'assets'))
+
+			//file.path += '.min.';
+
+			//if (err){
+			//	callback(new Error(''), null, file);
+			//}
+
+			//this.push(); //when append new file to stream
+
+			//callback(); //when no need to send file toward to streams
+
+			callback(null, file);
+		}/*, function(callback){ //second throudh2 argument, called when 'end' stream event fires
+			//create file object
+			let manifest = new vinylFsFile({
+				contents = new Buffer(JSON.stringify(manifest)),
+				base: process.cwd(),
+				path: process.cwd() + 'manifest.json'
+			})
+
+			this.push(manifest);
+
+			callback();
+		})*/))
 		.pipe(rename(function(filepath) {
 			return filepath.dirname = path.join(filepath.dirname.split(path.sep)[0], 'assets');
-			}))
+		}))
 		.pipe(gulp.dest(path.join(DIST, 'customs')));
 });
 
@@ -80,9 +129,6 @@ gulp.task('styles:customs', function(callback) {
 	callback();
 });
 
-//gulp.task('styles', gulp.parallel('styles:vendors', 'styles:customs'));
-
-// The default task (called when you run `gulp` from cli)
 gulp.task('build', gulp.series(
 						'clean',
 						gulp.parallel('styles:customs', 'styles:vendor', 'assets')));
