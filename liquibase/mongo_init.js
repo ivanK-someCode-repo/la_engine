@@ -1,81 +1,83 @@
-var MongoClient = require('mongodb').MongoClient
-    , assert = require('assert') // для юнит-тестирования модуль
-    , format = require('util').format
-    , sync = require('sync');
+const MongoClient = require('mongodb').MongoClient;
+const Db = require('mongodb').Db;
+const Server = require('mongodb').Server;
+const assert = require('assert'); // unit testsпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+const async = require('async');
 
 // Connection URL
-var url = 'mongodb://localhost:27017/engin';
+var url = 'mongodb://localhost:27017';
 // Use connect method to connect to the Server
 
-MongoClient.connect(url, function(err, db) {
+
+var db = new Db('test1', new Server('localhost', 27017));
+
+console.log(db);
+db.open(function(err, db) {
+    var collection = db.collection("simple_document_insert_collection_no_safe");
+// Insert a single document
+    collection.insert({hello: 'world_no_safe'});
+
+    db.dropDatabase(function(err, result) {
+
+        console.log(err);
+
+        db.dropDatabase(function(err, result) {
+
+            db = new Db('test1', new Server('localhost', 27017));
+
+            var collection1 = db.collection("simple_document_insert_collection_no_safe");
+
+            collection1.insert({hello: 'world_no_safe'});
+
+
+            console.log(collection1);
+        })
+    })
+
+
+})
+
+
+console.log(db);
+
+/*
+async.waterfall([
+    function(callback) {
+        MongoClient.connect(url, callback(err, db));
+    },
+    function(db, callback) {
+
+        console.log(db);
+
+        db.dropDatabase(callback(err, db));
+    },
+    function(db, callback) {
+
+        console.log(db);
+
+       db.createDatabase(callback(err, db));
+    },
+    function(arg1, arg2, callback) {
+
+        MongoClient.connecton.dropDatabase(function(err){
+
+        });
+
+        callback(null, 'three');
+    },
+    function(arg1, callback) {
+        // arg1 now equals 'three'
+        db.close();
+
+        callback(null, 'done');
+    }
+], function (err, result) {
     if (err) throw err;
 
     assert.equal(null, err);
 
-    console.log("Connected correctly to server");
-
-    db.listCollections({name: 'admins'})
-        .next(function(err, collinfo) {
-            if (collinfo) {
-                // The collection exists
-            }
-            else{
-                db.createCollection('admins', {strict:true}, function(err, collection){
-                    if (err) throw err;
-
-                    assert.equal(null, err);
-
-                    console.log(collection + "created succesfull");
-
-                    collection.insertMany([
-                        {
-                            name : 'admin',
-                            passHash: '3r4f3r34',
-                            roleIds: [
-                                '45645t45tr4g456456456',
-                                '3453452222'
-                            ]
-                        },
-                        {
-                            name : 'readAdmin',
-                            passHash: '0tr67867',
-                            roleIds: [
-                                '3453452222'
-                            ]}
-                    ], function(err, result) {
-                        assert.equal(err, null);
-                        assert.equal(2, result.result.n);
-                        assert.equal(2, result.ops.length);
-
-                        console.log("Inserted " + result.result.n + " documents into the document collection");
-                    });
-                });
-
-                db.createCollection('roles', {strict:true}, function(err, collection){
-                    if (err) throw err;
-
-                    assert.equal(null, err);
-
-                    console.log(collection + "created succesfull");
-
-                    collection.insertMany([
-                        {
-                            rights : ['0100']
-                        },
-                        {
-                            rights : ['1110']
-                        }
-                    ], function(err, result) {
-                        assert.equal(err, null);
-                        assert.equal(2, result.result.n);
-                        assert.equal(2, result.ops.length);
-
-                        console.log("Inserted " + result.result.n + " documents into the document collection");
-                    });
-                });
-            }
-        });
-
-
     db.close();
+
+    console.log("all done;");
 });
+    */
