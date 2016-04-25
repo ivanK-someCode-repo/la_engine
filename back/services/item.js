@@ -5,13 +5,12 @@ class ItemServices {
     constructor() {
 
     }
-
-    checkId(id){
-        return !isNaN(parseFloat(id)) && isFinite(id);
+    validate(params)
+    {
+      return itemsModel.validate(params);
     }
     getData(data)
     {
-    	//первый уровень проверки
 	    return itemsModel.getData(data);
     }
 }

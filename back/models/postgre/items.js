@@ -4,7 +4,7 @@ const FIELDS = require('./fields');
 const __fields = {
 	id: FIELDS.INT(),
 	code: FIELDS.INT(),
-	name: FIELDS.STRING(4000).required(),
+	name: FIELDS.STRING(4000),
 	price: FIELDS.INT()
 };
 class Items extends dbItem{
@@ -12,7 +12,8 @@ class Items extends dbItem{
 	{
 		super();
 		this.fields = __fields;
-		this.sql = 
+		this.fields.name.req();
+		this.sql =
 		{
 			sqlGet: 'select * from items'
 		};

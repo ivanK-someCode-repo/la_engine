@@ -31,7 +31,7 @@ class dbItem{
 		const where = this.genWhere(params);
 		const sql = this.sql.sqlGet + where;
         return this.throwSql(sql);
-	}	
+	}
 	putData() //sqlCreate
 	{
 
@@ -47,7 +47,7 @@ class dbItem{
 	genWhere(params)
 	{
 		let where = '', conditions = [];
-		// где-то здесь валидация 
+		// где-то здесь валидация
 		for (let key in params)
 		{
 			conditions.push(`${key} = ${params[key]}`)
@@ -64,7 +64,21 @@ class dbItem{
                 }
                 resolve(result);
             });
-        }) 
+        })
+	}
+	validate(params)
+	{
+		for (let key in this.fields)
+		{
+			let temp = this.fields[key].check(params[key], key);
+			if (temp.error)
+			{
+				return temp;
+			}
+		}
+		return {
+			error: false
+		};
 	}
 }
 
