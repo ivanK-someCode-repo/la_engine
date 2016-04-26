@@ -20,7 +20,11 @@ router.get('/', function(req, res) {
 */
 
 router.post('/:id', function(err,req, res) {
-    res.send('post ok');
+    itemService.saveData(req.params, req.body).then(function (result) {
+        res.send(result);
+    }, function (error) {
+        res.send(req.body);
+    });
 });
 
 router.get('/:id', function(req, res, next) {

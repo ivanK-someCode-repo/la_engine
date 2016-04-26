@@ -20,6 +20,10 @@ class ItemServices {
         {
             return itemsModel.putData(data);
         }
+        else
+        {
+            return itemsModel.postData(params, data);
+        }
     }
 }
 

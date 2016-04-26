@@ -39,8 +39,7 @@ class dbItem {
 		if (valid.error) {
 			return throwError(valid);
 		}
-		const where = this.genWhere(params);
-		const sql = this.sql.sqlGet + where;
+		const sql = `select * from ${this.tableName}${this.genWhere(params)}`;
 		return this.throwSql(sql);
 	}
 
@@ -53,9 +52,13 @@ class dbItem {
 		return this.throwSql(this.genInsert(data));
 	}
 
-	postData() //sqlEdit
+	postData(params, data) //sqlEdit
 	{
-
+      const valid = this.validate(data);
+  		if (valid.error) {
+  			return throwError(valid);
+  		}
+  		return this.throwSql(this.genUpdate(params, data));
 	}
 
 	deleteData() //sqlDelete
@@ -81,6 +84,14 @@ class dbItem {
 		return `insert into ${this.tableName} (${fields.join(', ')})
 					VALUES (${values.join(', ')})`;
 	}
+  genUpdate(params, data)
+  {
+    let values = [];
+		for (let key in data) {
+			values.push(`${key} = ${this.fields[key].val(data[key])}`);
+		}
+    return `update ${this.tableName} SET ${values.join(', ')}${this.genWhere(params)}`;
+  }
 	throwSql(sql) {
 		return new Promise(function (resolve, reject) {
 			client.query(sql, function (err, result) {
