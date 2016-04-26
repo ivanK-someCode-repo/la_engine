@@ -14,10 +14,6 @@ class Items extends dbItem{
 		this.fields = __fields;
 		this.tableName = 'items';
 		this.fields.name.req();
-		this.sql =
-		{
-			sqlGet: `select * from ${this.tableName}`
-		};
 	}
 }
 module.exports =  new Items();
