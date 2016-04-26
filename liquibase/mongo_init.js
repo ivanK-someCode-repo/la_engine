@@ -9,9 +9,16 @@ var url = 'mongodb://localhost:27017';
 // Use connect method to connect to the Server
 
 
-var db = new Db('test1', new Server('localhost', 27017));
+var db = new Db('fff', new Server('localhost', 27017));
+
+db.dropDatabase(function(err, result) {
+
+    console.log(err);
+
+});
 
 console.log(db);
+
 db.open(function(err, db) {
     var collection = db.collection("simple_document_insert_collection_no_safe");
 // Insert a single document
@@ -37,8 +44,6 @@ db.open(function(err, db) {
 
 })
 
-
-console.log(db);
 
 /*
 async.waterfall([
