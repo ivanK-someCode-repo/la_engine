@@ -22,12 +22,23 @@ client.on('error', function(error) {
     console.log("pg connection error: " + error);
 });
 
+function throwError(err) {
+	return new Promise(function (resolve, reject) {
+		reject(err);
+	});
+}
+
 class dbItem {
 	constructor() {
+
 	}
 
-	getData(params) //sqlGet
+	getData(params, keys) //sqlGet
 	{
+		const valid = this.validate(params, keys);
+		if (valid.error) {
+			return throwError(valid);
+		}
 		const where = this.genWhere(params);
 		const sql = this.sql.sqlGet + where;
 		return this.throwSql(sql);
@@ -35,6 +46,10 @@ class dbItem {
 
 	putData(data) //sqlCreate
 	{
+		const valid = this.validate(data);
+		if (valid.error) {
+			return throwError(valid);
+		}
 		return this.throwSql(this.genInsert(data));
 	}
 
@@ -77,30 +92,27 @@ class dbItem {
 		})
 	}
 
-	validate(params) {
-		for (let key in this.fields) {
-			let temp = this.fields[key].check(params[key], key);
-			if (temp.error) {
-				return temp;
+	validate(params, keys) {
+		if (keys === undefined) {
+			for (let key in this.fields) {
+				let temp = this.fields[key].check(params[key], key);
+				if (temp.error) {
+					return temp;
+				}
+			}
+		}
+		else {
+			for (let i = 0, len = keys.length; i < len; i++) {
+				let key = keys[i];
+				let temp = this.fields[key].checkRequired(params[key], key);
+				if (temp.error) {
+					return temp;
+				}
 			}
 		}
 		return {
 			error: false
 		};
-	}
-
-	validateFields(params, keys) {
-		for (let i = 0, len = keys.length; i < len; i++) {
-			let key = keys[i];
-			let temp = this.fields[key].checkRequired(params[key], key);
-			if (temp.error) {
-				return temp;
-			}
-		}
-		return {
-			error: false
-		};
-
 	}
 }
 

@@ -9,7 +9,7 @@ class FIELD {
 		this.required = false;
 	}
 
-	check(val, key) // это проверка на модификацию по-хорошему. на поиск надо дело отдельно
+	check(val, key) 
 	{
 		if (val === undefined && this.required) {
 			return throwError(`Required field ${key}`);
@@ -19,7 +19,7 @@ class FIELD {
 		}
 		return {error: false};
 	}
-	checkRequired(val, key) // это проверка на модификацию по-хорошему. на поиск надо дело отдельно
+	checkRequired(val, key) 
 	{
 		if (val === undefined) {
 			return throwError(`Required field ${key}`);
@@ -43,6 +43,16 @@ class STRINGfield extends FIELD {
 	constructor(params) {
 		super();
 		this.len = params[0];
+	}
+	checkRequired(val, key) 
+	{
+		if (val === undefined || val === '') {
+			return throwError(`Required field ${key}`);
+		}
+		if (val !== undefined && !this.checkType(val)) {
+			return throwError(`Wrong type ${key}`);
+		}
+		return {error: false};
 	}
 	checkType(val) {
 		return (Object.prototype.toString.call(val) === '[object String]');
@@ -92,7 +102,5 @@ const FIELDS = {
 		return new BOOLEANfield(arguments)
 	}
 };
-
-// проверка. Например, что целое число  - это целое число.
 
 module.exports = FIELDS;

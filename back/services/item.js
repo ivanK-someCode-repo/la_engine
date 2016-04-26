@@ -5,14 +5,14 @@ class ItemServices {
     constructor() {
 
     }
-
     validate(params) {
         const keys = ['id'];
         return itemsModel.validateFields(params, keys);
     }
 
-    getData(data) {
-        return itemsModel.getData(data);
+    getData(params) {
+        const keys = ['id'];
+        return itemsModel.getData(params, keys);
     }
     saveData(params, data)
     {

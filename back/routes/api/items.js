@@ -24,22 +24,16 @@ router.post('/:id', function(err,req, res) {
 });
 
 router.get('/:id', function(req, res, next) {
-
-    //if (req.params.id == 0) next('route');
-    const isNorm = itemService.validate(req.params);
-    if (isNorm.error) {
-        res.send(isNorm.text);
-    }
     //https://learn.javascript.ru/promise
     debugger;
     log.info('api get by id router has been called');
 
-    itemService.getData({id: req.params.id}).then(function onFulfilled(dbResult) {
+    itemService.getData(req.params).then(function onFulfilled(dbResult) {
         log.info('get answer from base');
         res.send("" + dbResult);
     }, function onRejected(err) {
-        next(err);
-        //res.send("" + err);
+        // next(err);
+        res.send("" + err.text);
     });
 
 });
@@ -51,14 +45,9 @@ router.get('/:id', function (req, res, next) {
 */
 
 router.put('/', function (req, res, next) {
-    const isNorm = itemService.validate(req.body);
-    if (isNorm.error) {
-        res.send(isNorm.text);
-    }
     itemService.saveData(req.params, req.body).then(function (result) {
         res.send(result);
     }, function (error) {
-
         res.send(req.body);
     });
 });
