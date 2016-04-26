@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="ivan" id="01042016--06-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS tags_types_tags (
+			id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags_types_tags
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-2">
+		<sql>
+			ALTER TABLE tags_types_tags ADD CONSTRAINT tags_types_tags_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP CONSTRAINT tags_types_tags_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-3">
+		<sql>
+			ALTER TABLE tags_types_tags ADD COLUMN tags_type_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP COLUMN tags_type_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-4">
+		<sql>
+			ALTER TABLE tags_types_tags ADD COLUMN tag_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP COLUMN tag_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-5">
+		<sql>
+			ALTER TABLE tags_types_tags ADD CONSTRAINT ttt_tags_types_fk FOREIGN KEY (tags_type_id) REFERENCES tags_types (id);
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP CONSTRAINT ttt_tags_types_fk
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-6">
+		<sql>
+			ALTER TABLE tags_types_tags ADD CONSTRAINT ttt_tags_fk FOREIGN KEY (tag_id) REFERENCES tags (id);
+		</sql>
+		<rollback>
+			ALTER TABLE tags_types_tags DROP CONSTRAINT ttt_tags_fk
+		</rollback>
+	</changeSet>
+	
+</databaseChangeLog>
