@@ -12,10 +12,11 @@ class Items extends dbItem{
 	{
 		super();
 		this.fields = __fields;
+		this.tableName = 'items';
 		this.fields.name.req();
 		this.sql =
 		{
-			sqlGet: 'select * from items'
+			sqlGet: `select * from ${this.tableName}`
 		};
 	}
 }

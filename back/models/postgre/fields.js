@@ -33,6 +33,10 @@ class FIELD {
 	req() {
 		this.required = true;
 	}
+	val(val)
+	{
+		return val;
+	}
 }
 
 class STRINGfield extends FIELD {
@@ -42,6 +46,10 @@ class STRINGfield extends FIELD {
 	}
 	checkType(val) {
 		return (Object.prototype.toString.call(val) === '[object String]');
+	}
+	val(val)
+	{
+		return `'${val}'`;
 	}
 }
 class INTfield extends FIELD {

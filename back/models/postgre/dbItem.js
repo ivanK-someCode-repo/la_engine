@@ -33,9 +33,9 @@ class dbItem {
 		return this.throwSql(sql);
 	}
 
-	putData() //sqlCreate
+	putData(data) //sqlCreate
 	{
-
+		return this.throwSql(this.genInsert(data));
 	}
 
 	postData() //sqlEdit
@@ -57,7 +57,15 @@ class dbItem {
 		// and - временное решение, потом будет выбор and / or
 		return conditions.length ? ` where ${conditions.join(' and ')}` : '';
 	}
-
+	genInsert(data) {
+		let fields = [], values = [];
+		for (let key in data) {
+			fields.push(key);
+			values.push(this.fields[key].val(data[key]));
+		}
+		return `insert into ${this.tableName} (${fields.join(', ')})
+					VALUES (${values.join(', ')})`;
+	}
 	throwSql(sql) {
 		return new Promise(function (resolve, reject) {
 			client.query(sql, function (err, result) {

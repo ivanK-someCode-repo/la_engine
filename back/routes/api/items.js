@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 });
 */
 
-router.post('/', function(err,req, res) {
+router.post('/:id', function(err,req, res) {
     res.send('post ok');
 });
 
@@ -27,21 +27,20 @@ router.get('/:id', function(req, res, next) {
 
     //if (req.params.id == 0) next('route');
     const isNorm = itemService.validate(req.params);
-    if (isNorm.error)
-    {
-          res.send(isNorm.text);
+    if (isNorm.error) {
+        res.send(isNorm.text);
     }
     //https://learn.javascript.ru/promise
     debugger;
     log.info('api get by id router has been called');
 
-    itemService.getData({id: req.params.id}).then(function onFulfilled(dbResult){
-            log.info('get answer from base');
-            res.send("" + dbResult);
-        }, function onRejected(err){
-            next(err);
-            //res.send("" + err);
-        });
+    itemService.getData({id: req.params.id}).then(function onFulfilled(dbResult) {
+        log.info('get answer from base');
+        res.send("" + dbResult);
+    }, function onRejected(err) {
+        next(err);
+        //res.send("" + err);
+    });
 
 });
 /*
@@ -51,11 +50,20 @@ router.get('/:id', function (req, res, next) {
 });
 */
 
-router.put('/:id', function (err,req, res){
-    res.send('This is not implemented now');
+router.put('/', function (req, res, next) {
+    const isNorm = itemService.validate(req.body);
+    if (isNorm.error) {
+        res.send(isNorm.text);
+    }
+    itemService.saveData(req.params, req.body).then(function (result) {
+        res.send(result);
+    }, function (error) {
+
+        res.send(req.body);
+    });
 });
 
-router.delete('/:id', function (err,req, res){
+router.delete('/:id', function (req, res, next){
     res.send('This is not implemented now');
 });
 

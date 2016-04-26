@@ -14,6 +14,13 @@ class ItemServices {
     getData(data) {
         return itemsModel.getData(data);
     }
+    saveData(params, data)
+    {
+        if (params.id === undefined)
+        {
+            return itemsModel.putData(data);
+        }
+    }
 }
 
 module.exports = new ItemServices();
