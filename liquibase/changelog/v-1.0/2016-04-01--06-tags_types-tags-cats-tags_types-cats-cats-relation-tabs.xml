@@ -119,7 +119,7 @@
 	</changeSet>
 
 
-	<changeSet author="ivan" id="01042016--06-10">
+	<changeSet author="ivan" id="01042016--06-21">
 		<sql>
 			CREATE TABLE IF NOT EXISTS categories_tags_types (
 				id SERIAL
@@ -130,7 +130,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-11">
+	<changeSet author="ivan" id="01042016--06-22">
 		<sql>
 			ALTER TABLE categories_tags_types ADD CONSTRAINT categories_tags_types_pkey PRIMARY KEY (id)
 		</sql>
@@ -139,7 +139,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-12">
+	<changeSet author="ivan" id="01042016--06-23">
 		<sql>
 			ALTER TABLE categories_tags_types ADD COLUMN category_id INTEGER NOT NULL
 		</sql>
@@ -148,7 +148,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-13">
+	<changeSet author="ivan" id="01042016--06-24">
 		<sql>
 			ALTER TABLE categories_tags_types ADD COLUMN tags_type_id INTEGER NOT NULL
 		</sql>
@@ -157,7 +157,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-14">
+	<changeSet author="ivan" id="01042016--06-25">
 		<sql>
 			ALTER TABLE categories_tags_types ADD CONSTRAINT categories_tags_types_categories_fk FOREIGN KEY (category_id) REFERENCES categories (id);
 		</sql>
@@ -166,7 +166,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-15">
+	<changeSet author="ivan" id="01042016--06-26">
 		<sql>
 			ALTER TABLE categories_tags_types ADD CONSTRAINT categories_tags_types_tags_types_fk FOREIGN KEY (tags_type_id) REFERENCES tags_types (id);
 		</sql>

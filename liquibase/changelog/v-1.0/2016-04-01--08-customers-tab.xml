@@ -5,6 +5,51 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
+	<changeSet author="ivan" id="01042016--08-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS customers (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE customers
+		</rollback>
+	</changeSet>
 
+	<changeSet author="ivan" id="01042016--08-2">
+		<sql>
+			ALTER TABLE customers ADD CONSTRAINT customers_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP CONSTRAINT customers_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--08-3">
+		<sql>
+			ALTER TABLE customers ADD COLUMN login VARCHAR(25)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN login
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--08-4">
+		<sql>
+			ALTER TABLE customers ADD COLUMN code INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN code
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--08-5">
+		<sql>
+			ALTER TABLE customers ADD COLUMN price BIGINT
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN price
+		</rollback>
+	</changeSet>
 
 </databaseChangeLog>

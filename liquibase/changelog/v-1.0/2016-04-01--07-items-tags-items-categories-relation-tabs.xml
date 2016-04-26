@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet author="ivan" id="01042016--06-1">
+	<changeSet author="ivan" id="01042016--07-1">
 		<sql>
 			CREATE TABLE IF NOT EXISTS items_tags (
 				id SERIAL
@@ -16,7 +16,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-2">
+	<changeSet author="ivan" id="01042016--07-2">
 		<sql>
 			ALTER TABLE items_tags ADD CONSTRAINT items_tags_pkey PRIMARY KEY (id)
 		</sql>
@@ -25,7 +25,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-3">
+	<changeSet author="ivan" id="01042016--07-3">
 		<sql>
 			ALTER TABLE items_tags ADD COLUMN item_id INTEGER NOT NULL
 		</sql>
@@ -34,7 +34,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-4">
+	<changeSet author="ivan" id="01042016--07-4">
 		<sql>
 			ALTER TABLE items_tags ADD COLUMN tag_id INTEGER NOT NULL
 		</sql>
@@ -43,7 +43,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-5">
+	<changeSet author="ivan" id="01042016--07-5">
 		<sql>
 			ALTER TABLE items_tags ADD CONSTRAINT items_tags_items_fk FOREIGN KEY (item_id) REFERENCES items (id);
 		</sql>
@@ -52,7 +52,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-6">
+	<changeSet author="ivan" id="01042016--07-6">
 		<sql>
 			ALTER TABLE items_tags ADD CONSTRAINT items_tags_tags_fk FOREIGN KEY (tag_id) REFERENCES tags (id);
 		</sql>
@@ -62,7 +62,7 @@
 	</changeSet>
 
 
-	<changeSet author="ivan" id="01042016--06-1">
+	<changeSet author="ivan" id="01042016--07-11">
 		<sql>
 			CREATE TABLE IF NOT EXISTS items_categories (
 				id SERIAL
@@ -73,7 +73,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-2">
+	<changeSet author="ivan" id="01042016--07-12">
 		<sql>
 			ALTER TABLE items_categories ADD CONSTRAINT items_categories_pkey PRIMARY KEY (id)
 		</sql>
@@ -82,7 +82,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-3">
+	<changeSet author="ivan" id="01042016--07-13">
 		<sql>
 			ALTER TABLE items_categories ADD COLUMN item_id INTEGER NOT NULL
 		</sql>
@@ -91,7 +91,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-4">
+	<changeSet author="ivan" id="01042016--07-14">
 		<sql>
 			ALTER TABLE items_categories ADD COLUMN category_id INTEGER NOT NULL
 		</sql>
@@ -100,7 +100,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-5">
+	<changeSet author="ivan" id="01042016--07-15">
 		<sql>
 			ALTER TABLE items_categories ADD CONSTRAINT items_categories_items_fk FOREIGN KEY (item_id) REFERENCES items (id);
 		</sql>
@@ -109,7 +109,7 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--06-6">
+	<changeSet author="ivan" id="01042016--07-16">
 		<sql>
 			ALTER TABLE items_categories ADD CONSTRAINT items_categories_categories_fk FOREIGN KEY (category_id) REFERENCES categories (id);
 		</sql>
