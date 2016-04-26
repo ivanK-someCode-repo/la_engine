@@ -22,63 +22,77 @@ client.on('error', function(error) {
     console.log("pg connection error: " + error);
 });
 
-class dbItem{
-	constructor()
-	{
+class dbItem {
+	constructor() {
 	}
+
 	getData(params) //sqlGet
 	{
 		const where = this.genWhere(params);
 		const sql = this.sql.sqlGet + where;
-        return this.throwSql(sql);
+		return this.throwSql(sql);
 	}
+
 	putData() //sqlCreate
 	{
 
 	}
+
 	postData() //sqlEdit
 	{
 
 	}
+
 	deleteData() //sqlDelete
 	{
 
 	}
-	genWhere(params)
-	{
+
+	genWhere(params) {
 		let where = '', conditions = [];
 		// где-то здесь валидация
-		for (let key in params)
-		{
+		for (let key in params) {
 			conditions.push(`${key} = ${params[key]}`)
 		}
 		// and - временное решение, потом будет выбор and / or
 		return conditions.length ? ` where ${conditions.join(' and ')}` : '';
 	}
-	throwSql(sql)
-	{
-		return new Promise( function(resolve, reject){
-            client.query(sql, function(err, result){
-                if (err){
-                    reject(err);
-                }
-                resolve(result);
-            });
-        })
+
+	throwSql(sql) {
+		return new Promise(function (resolve, reject) {
+			client.query(sql, function (err, result) {
+				if (err) {
+					reject(err);
+				}
+				resolve(result);
+			});
+		})
 	}
-	validate(params)
-	{
-		for (let key in this.fields)
-		{
+
+	validate(params) {
+		for (let key in this.fields) {
 			let temp = this.fields[key].check(params[key], key);
-			if (temp.error)
-			{
+			if (temp.error) {
 				return temp;
 			}
 		}
 		return {
 			error: false
 		};
+	}
+
+	validateFields(params, keys) {
+		for (let i = 0, len = keys.length; i < len; i++) {
+			let key = keys[i];
+			let temp = this.fields[key].checkRequired(params[key], key);
+			if (temp.error) {
+				return temp;
+			}
+		}
+		return {
+			error: false
+		};
+
 	}
 }
 

@@ -5,13 +5,14 @@ class ItemServices {
     constructor() {
 
     }
-    validate(params)
-    {
-      return itemsModel.validate(params);
+
+    validate(params) {
+        const keys = ['id'];
+        return itemsModel.validateFields(params, keys);
     }
-    getData(data)
-    {
-	    return itemsModel.getData(data);
+
+    getData(data) {
+        return itemsModel.getData(data);
     }
 }
 
