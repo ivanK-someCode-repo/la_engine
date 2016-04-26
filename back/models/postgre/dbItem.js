@@ -39,8 +39,7 @@ class dbItem {
 		if (valid.error) {
 			return throwError(valid);
 		}
-		const sql = `select * from ${this.tableName}${this.genWhere(params)}`;
-		return this.throwSql(sql);
+		return this.throwSql(this.genGet(params));
 	}
 
 	putData(data) //sqlCreate
@@ -63,7 +62,11 @@ class dbItem {
 
 	deleteData() //sqlDelete
 	{
-
+      const valid = this.validate(params, keys);
+      if (valid.error) {
+        return throwError(valid);
+      }
+  		return this.throwSql(this.genDelete(params));
 	}
 
 	genWhere(params) {
@@ -75,6 +78,10 @@ class dbItem {
 		// and - временное решение, потом будет выбор and / or
 		return conditions.length ? ` where ${conditions.join(' and ')}` : '';
 	}
+  genGet(params)
+  {
+    return `select * from ${this.tableName}${this.genWhere(params)}`;
+  }
 	genInsert(data) {
 		let fields = [], values = [];
 		for (let key in data) {
@@ -91,6 +98,10 @@ class dbItem {
 			values.push(`${key} = ${this.fields[key].val(data[key])}`);
 		}
     return `update ${this.tableName} SET ${values.join(', ')}${this.genWhere(params)}`;
+  }
+  genDelete(params)
+  {
+    return `delete from ${this.tableName}${this.genWhere(params)}`;
   }
 	throwSql(sql) {
 		return new Promise(function (resolve, reject) {

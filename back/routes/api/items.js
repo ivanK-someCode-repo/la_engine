@@ -57,7 +57,11 @@ router.put('/', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next){
-    res.send('This is not implemented now');
+    itemService.deleteData(req.params).then(function (result) {
+        res.send(result);
+    }, function (error) {
+        res.send(req.body);
+    });
 });
 
 module.exports = router;

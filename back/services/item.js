@@ -25,6 +25,11 @@ class ItemServices {
             return itemsModel.postData(params, data);
         }
     }
+    deleteData(params)
+    {
+        const keys = ['id'];
+        return itemsModel.deleteData(params, keys);
+    }
 }
 
 module.exports = new ItemServices();
