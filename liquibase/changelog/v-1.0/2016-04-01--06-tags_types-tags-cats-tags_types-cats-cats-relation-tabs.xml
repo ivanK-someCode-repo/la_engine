@@ -117,5 +117,62 @@
 			ALTER TABLE categories_relation DROP CONSTRAINT categories_relation_categories_child_fk
 		</rollback>
 	</changeSet>
+
+
+	<changeSet author="ivan" id="01042016--06-10">
+		<sql>
+			CREATE TABLE IF NOT EXISTS categories_tags_types (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE categories_tags_types
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-11">
+		<sql>
+			ALTER TABLE categories_tags_types ADD CONSTRAINT categories_tags_types_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE categories_tags_types DROP CONSTRAINT categories_tags_types_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-12">
+		<sql>
+			ALTER TABLE categories_tags_types ADD COLUMN category_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE categories_tags_types DROP COLUMN category_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-13">
+		<sql>
+			ALTER TABLE categories_tags_types ADD COLUMN tags_type_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE categories_tags_types DROP COLUMN tags_type_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-14">
+		<sql>
+			ALTER TABLE categories_tags_types ADD CONSTRAINT categories_tags_types_categories_fk FOREIGN KEY (category_id) REFERENCES categories (id);
+		</sql>
+		<rollback>
+			ALTER TABLE categories_tags_types DROP CONSTRAINT categories_tags_types_categories_fk
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-15">
+		<sql>
+			ALTER TABLE categories_tags_types ADD CONSTRAINT categories_tags_types_tags_types_fk FOREIGN KEY (tags_type_id) REFERENCES tags_types (id);
+		</sql>
+		<rollback>
+			ALTER TABLE categories_tags_types DROP CONSTRAINT categories_tags_types_tags_types_fk
+		</rollback>
+	</changeSet>
   
 </databaseChangeLog>

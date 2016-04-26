@@ -7,58 +7,115 @@
 
 	<changeSet author="ivan" id="01042016--06-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS tags_types_tags (
-			id SERIAL
+			CREATE TABLE IF NOT EXISTS items_tags (
+				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE tags_types_tags
+			DROP TABLE items_tags
 		</rollback>
 	</changeSet>
 
 	<changeSet author="ivan" id="01042016--06-2">
 		<sql>
-			ALTER TABLE tags_types_tags ADD CONSTRAINT tags_types_tags_pkey PRIMARY KEY (id)
+			ALTER TABLE items_tags ADD CONSTRAINT items_tags_pkey PRIMARY KEY (id)
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types_tags DROP CONSTRAINT tags_types_tags_pkey
+			ALTER TABLE items_tags DROP CONSTRAINT items_tags_pkey
 		</rollback>
 	</changeSet>
 
 	<changeSet author="ivan" id="01042016--06-3">
 		<sql>
-			ALTER TABLE tags_types_tags ADD COLUMN tags_type_id INTEGER NOT NULL
+			ALTER TABLE items_tags ADD COLUMN item_id INTEGER NOT NULL
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types_tags DROP COLUMN tags_type_id
+			ALTER TABLE items_tags DROP COLUMN item_id
 		</rollback>
 	</changeSet>
 
 	<changeSet author="ivan" id="01042016--06-4">
 		<sql>
-			ALTER TABLE tags_types_tags ADD COLUMN tag_id INTEGER NOT NULL
+			ALTER TABLE items_tags ADD COLUMN tag_id INTEGER NOT NULL
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types_tags DROP COLUMN tag_id
+			ALTER TABLE items_tags DROP COLUMN tag_id
 		</rollback>
 	</changeSet>
 
 	<changeSet author="ivan" id="01042016--06-5">
 		<sql>
-			ALTER TABLE tags_types_tags ADD CONSTRAINT ttt_tags_types_fk FOREIGN KEY (tags_type_id) REFERENCES tags_types (id);
+			ALTER TABLE items_tags ADD CONSTRAINT items_tags_items_fk FOREIGN KEY (item_id) REFERENCES items (id);
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types_tags DROP CONSTRAINT ttt_tags_types_fk
+			ALTER TABLE items_tags DROP CONSTRAINT items_tags_items_fk
 		</rollback>
 	</changeSet>
 
 	<changeSet author="ivan" id="01042016--06-6">
 		<sql>
-			ALTER TABLE tags_types_tags ADD CONSTRAINT ttt_tags_fk FOREIGN KEY (tag_id) REFERENCES tags (id);
+			ALTER TABLE items_tags ADD CONSTRAINT items_tags_tags_fk FOREIGN KEY (tag_id) REFERENCES tags (id);
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types_tags DROP CONSTRAINT ttt_tags_fk
+			ALTER TABLE items_tags DROP CONSTRAINT items_tags_tags_fk
 		</rollback>
 	</changeSet>
-	
+
+
+	<changeSet author="ivan" id="01042016--06-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS items_categories (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE items_categories
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-2">
+		<sql>
+			ALTER TABLE items_categories ADD CONSTRAINT items_categories_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE items_categories DROP CONSTRAINT items_categories_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-3">
+		<sql>
+			ALTER TABLE items_categories ADD COLUMN item_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE items_categories DROP COLUMN item_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-4">
+		<sql>
+			ALTER TABLE items_categories ADD COLUMN category_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE items_categories DROP COLUMN category_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-5">
+		<sql>
+			ALTER TABLE items_categories ADD CONSTRAINT items_categories_items_fk FOREIGN KEY (item_id) REFERENCES items (id);
+		</sql>
+		<rollback>
+			ALTER TABLE items_categories DROP CONSTRAINT items_categories_items_fk
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--06-6">
+		<sql>
+			ALTER TABLE items_categories ADD CONSTRAINT items_categories_categories_fk FOREIGN KEY (category_id) REFERENCES categories (id);
+		</sql>
+		<rollback>
+			ALTER TABLE items_categories DROP CONSTRAINT items_categories_categories_fk
+		</rollback>
+	</changeSet>
+
 </databaseChangeLog>

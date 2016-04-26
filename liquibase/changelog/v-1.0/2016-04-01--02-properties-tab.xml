@@ -27,6 +27,15 @@
 
 	<changeSet author="ivan" id="01042016--02-3">
 		<sql>
+			ALTER TABLE properties ADD COLUMN item_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE properties DROP COLUMN item_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--02-4">
+		<sql>
 			ALTER TABLE properties ADD COLUMN props JSON
 		</sql>
 		<rollback>
