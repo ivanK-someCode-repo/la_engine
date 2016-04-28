@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const log = require('../../libs/log')(module);
-
+debugger;
 const fs = require('fs');
 let obj = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
 
