@@ -5,42 +5,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-  	<changeSet author="ivan" id="01042016--03-1">
+	<changeSet author="ivan" id="01042016--11-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS tags (
+			CREATE TABLE IF NOT EXISTS addresses (
 				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE tags
-		</rollback>
-	</changeSet>
-  
-	<changeSet author="ivan" id="01042016--03-2">
-		<sql>
-			ALTER TABLE tags ADD CONSTRAINT tags_pkey PRIMARY KEY (id)
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP CONSTRAINT tags_pkey
-		</rollback>
-	</changeSet>
-	
-	<changeSet author="ivan" id="01042016--03-3">
-		<sql>
-			ALTER TABLE tags ADD COLUMN code INTEGER
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP COLUMN code
-		</rollback>
-	</changeSet>
-  
-	<changeSet author="ivan" id="01042016--03-4">
-		<sql>
-			ALTER TABLE tags ADD COLUMN name VARCHAR(256)
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP COLUMN name
+			DROP TABLE addresses
 		</rollback>
 	</changeSet>
 
+	<changeSet author="ivan" id="01042016--11-2">
+		<sql>
+			ALTER TABLE addresses ADD CONSTRAINT addresses_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE addresses DROP CONSTRAINT addresses_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--11-3">
+		<sql>
+			ALTER TABLE addresses ADD COLUMN address VARCHAR(4000)
+		</sql>
+		<rollback>
+			ALTER TABLE addresses DROP COLUMN address
+		</rollback>
+	</changeSet>
+	
 </databaseChangeLog>

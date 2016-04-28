@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="ivan" id="01042016--12-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS customers (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE customers
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-2">
+		<sql>
+			ALTER TABLE customers ADD CONSTRAINT customers_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP CONSTRAINT customers_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-3">
+		<sql>
+			ALTER TABLE customers ADD COLUMN name VARCHAR(128)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN name
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-4">
+		<sql>
+			ALTER TABLE customers ADD COLUMN lastname VARCHAR(128)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN lastname
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-5">
+		<sql>
+			ALTER TABLE customers ADD COLUMN surname VARCHAR(128)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN surname
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-6">
+		<sql>
+			ALTER TABLE customers ADD COLUMN phone VARCHAR(64)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN phone
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-7">
+		<sql>
+			ALTER TABLE customers ADD COLUMN email VARCHAR(256)
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN email
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-8">
+		<sql>
+			ALTER TABLE customers ADD COLUMN address_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN address_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--12-9">
+		<sql>
+			ALTER TABLE customers ADD COLUMN user_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE customers DROP COLUMN user_id
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

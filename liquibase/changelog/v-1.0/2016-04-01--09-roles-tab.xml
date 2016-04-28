@@ -5,50 +5,50 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet author="ivan" id="01042016--08-1">
+	<changeSet author="ivan" id="01042016--09-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS customers (
+			CREATE TABLE IF NOT EXISTS roles (
 				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE customers
+			DROP TABLE users
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-2">
+	<changeSet author="ivan" id="01042016--09-2">
 		<sql>
-			ALTER TABLE customers ADD CONSTRAINT customers_pkey PRIMARY KEY (id)
+			ALTER TABLE roles ADD CONSTRAINT roles_pkey PRIMARY KEY (id)
 		</sql>
 		<rollback>
-			ALTER TABLE customers DROP CONSTRAINT customers_pkey
+			ALTER TABLE roles DROP CONSTRAINT roles_pkey
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-3">
+	<changeSet author="ivan" id="01042016--09-3">
 		<sql>
-			ALTER TABLE customers ADD COLUMN login VARCHAR(25)
+			ALTER TABLE roles ADD COLUMN code INTEGER
 		</sql>
 		<rollback>
-			ALTER TABLE customers DROP COLUMN login
+			ALTER TABLE roles DROP COLUMN code
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-4">
+	<changeSet author="ivan" id="01042016--09-4">
 		<sql>
-			ALTER TABLE customers ADD COLUMN code INTEGER
+			ALTER TABLE roles ADD COLUMN name VARCHAR(256)
 		</sql>
 		<rollback>
-			ALTER TABLE customers DROP COLUMN code
+			ALTER TABLE roles DROP COLUMN name
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-5">
+	<changeSet author="ivan" id="01042016--09-5">
 		<sql>
-			ALTER TABLE customers ADD COLUMN price BIGINT
+			ALTER TABLE roles ADD COLUMN description VARCHAR(256)
 		</sql>
 		<rollback>
-			ALTER TABLE customers DROP COLUMN price
+			ALTER TABLE roles DROP COLUMN description
 		</rollback>
 	</changeSet>
 

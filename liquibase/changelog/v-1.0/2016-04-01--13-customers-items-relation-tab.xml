@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="ivan" id="01342016--13-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS customers_items (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE customers_items
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01342016--13-2">
+		<sql>
+			ALTER TABLE customers_items ADD CONSTRAINT customers_items_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE customers_items DROP CONSTRAINT customers_items_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01342016--13-3">
+		<sql>
+			ALTER TABLE customers_items ADD COLUMN customer_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE customers_items DROP COLUMN customer_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01342016--13-4">
+		<sql>
+			ALTER TABLE customers_items ADD COLUMN user_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE customers_items DROP COLUMN user_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01342016--13-5">
+		<sql>
+			ALTER TABLE customers_items ADD CONSTRAINT customers_items_customers_fk FOREIGN KEY (customer_id) REFERENCES customers (id);
+		</sql>
+		<rollback>
+			ALTER TABLE customers_items DROP CONSTRAINT customers_items_customers_fk
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01342016--13-6">
+		<sql>
+			ALTER TABLE customers_items ADD CONSTRAINT customers_items_users_fk FOREIGN KEY (user_id) REFERENCES users (id);
+		</sql>
+		<rollback>
+			ALTER TABLE customers_items DROP CONSTRAINT customers_items_users_fk
+		</rollback>
+	</changeSet>
+	
+</databaseChangeLog>
