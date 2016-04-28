@@ -5,7 +5,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-  	<!-- categories -->
 	<changeSet author="ivan" id="01042016--04-1">
 		<sql>
 			CREATE TABLE IF NOT EXISTS categories (
@@ -37,7 +36,7 @@
 	
 	<changeSet author="ivan" id="01042016--04-4">
 		<sql>
-			ALTER TABLE categories ADD COLUMN name VARCHAR(4000)
+			ALTER TABLE categories ADD COLUMN name VARCHAR(256)
 		</sql>
 		<rollback>
 			ALTER TABLE categories DROP COLUMN name

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="ivan" id="01042016--14-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS history_actions (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--14-2">
+		<sql>
+			ALTER TABLE history_actions ADD CONSTRAINT history_actions_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE history_actions DROP CONSTRAINT history_actions_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--14-3">
+		<sql>
+			ALTER TABLE history_actions ADD COLUMN code INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE history_actions DROP COLUMN code
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--14-4">
+		<sql>
+			ALTER TABLE history_actions ADD COLUMN name VARCHAR(256)
+		</sql>
+		<rollback>
+			ALTER TABLE history_actions DROP COLUMN name
+		</rollback>
+	</changeSet>
+
+
+	<changeSet author="ivan" id="01042016--14-11">
+		<sql>
+			CREATE TABLE IF NOT EXISTS history_subjects (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE tags
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--14-12">
+		<sql>
+			ALTER TABLE history_subjects ADD CONSTRAINT history_subjects_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE history_subjects DROP CONSTRAINT history_subjects_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--14-13">
+		<sql>
+			ALTER TABLE history_subjects ADD COLUMN code INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE history_subjects DROP COLUMN code
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--14-14">
+		<sql>
+			ALTER TABLE history_subjects ADD COLUMN name VARCHAR(256)
+		</sql>
+		<rollback>
+			ALTER TABLE history_subjects DROP COLUMN name
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

@@ -73,6 +73,7 @@ app.use(function(err, req, res, next) {
 });
 
 const server = http.createServer(app).listen(app.get('port'), function(){
+	debugger;
   log.info('Express server listening on port ' + config.get('port'));
 });
 

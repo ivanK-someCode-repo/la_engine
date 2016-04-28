@@ -21,18 +21,26 @@
 	
 	<include file="2016-04-01--04-categories-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--05-tags-types-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--05-tags_types-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--06-tags-types-tags-categories-categories-relation-tabs.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--06-tags_types-tags-cats-tags_types-cats-cats-relation-tabs.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--07-items-tags-items-categories-items-properties-relation-tabs.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--07-items-tags-items-categories-relation-tabs.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--08-customers-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--08-users-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--09-items-history-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--09-roles-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--10-customers-history-tab.xml" relativeToChangelogFile="true"/>
+	<include file="2016-04-01--10-users-roles-relation-tab.xml" relativeToChangelogFile="true"/>
 	
-	<include file="2016-04-01--11-app-preferences-tab.xml" relativeToChangelogFile="true"/>
-	
+	<include file="2016-04-01--11-addresses-tab.xml" relativeToChangelogFile="true"/>
+
+	<include file="2016-04-01--12-customers-tab.xml" relativeToChangelogFile="true"/>
+
+	<include file="2016-04-01--13-customers-items-relation-tab.xml" relativeToChangelogFile="true"/>
+
+	<include file="2016-04-01--14-history_actions-history_subjects-tab.xml" relativeToChangelogFile="true"/>
+
+	<include file="2016-04-01--15-history-tab.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>
