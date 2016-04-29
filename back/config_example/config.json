@@ -10,5 +10,14 @@
     "layoutsDest":"./back/layouts",
     "enginName": "jade"
   },
+  "session":{
+    "secret": "tarampampam",
+    "key": "sid",
+    "cookie":{
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": null
+    }
+  },
   "faviconPath": "./favicon.ico"
 }

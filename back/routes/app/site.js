@@ -1,7 +1,6 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const log = require('../../libs/log')(module);
 debugger;
 const fs = require('fs');

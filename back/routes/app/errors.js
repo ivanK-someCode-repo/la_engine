@@ -1,30 +1,13 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
-const url = require('url');
+const router = require('express').Router();
 const log = require('../../libs/log')(module);
-var config = require('../../config');
+const HttpError = require('../../libs/error').HttpError;
 
-// catch 404 and 401 then forward to error handler
 router.use(function(req, res, next) {
-    const urlObj = url.parse(req.url, true);
+    log.info("page not found");
 
-    debugger;
-
-    if (urlObj.pathname == '/none'){
-        let err = new Error('Not Found');
-        err.status = 404;
-        next(err);
-    }
-    else if(urlObj.pathname == '/denied'){
-        let err = new Error('Forbidden');
-        err.status = 401;
-        next(err);
-    }
-    else{
-        next();
-    }
+    next(new HttpError(404, 'page not found'));
 });
 
 /*
