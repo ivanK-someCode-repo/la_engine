@@ -43,4 +43,6 @@
 
 	<include file="2016-04-01--15-history-tab.xml" relativeToChangelogFile="true"/>
 
+	<include file="2016-04-01--16-system_settings-tab.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

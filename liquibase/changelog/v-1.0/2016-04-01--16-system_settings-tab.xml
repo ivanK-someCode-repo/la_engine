@@ -5,51 +5,42 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet author="ivan" id="01042016--08-1">
+	<changeSet author="ivan" id="01042016--16-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS users (
+			CREATE TABLE IF NOT EXISTS system_settings (
 				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE users
+			DROP TABLE system_settings
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-2">
+	<changeSet author="ivan" id="01042016--16-2">
 		<sql>
-			ALTER TABLE users ADD CONSTRAINT users_pkey PRIMARY KEY (id)
+			ALTER TABLE system_settings ADD CONSTRAINT system_settings_pkey PRIMARY KEY (id)
 		</sql>
 		<rollback>
-			ALTER TABLE users DROP CONSTRAINT users_pkey
+			ALTER TABLE system_settings DROP CONSTRAINT system_settings_pkey
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-3">
+	<changeSet author="ivan" id="01042016--16-3">
 		<sql>
-			ALTER TABLE users ADD COLUMN login VARCHAR(128)
+			ALTER TABLE system_settings ADD COLUMN name VARCHAR(256)
 		</sql>
 		<rollback>
-			ALTER TABLE users DROP COLUMN login
+			ALTER TABLE system_settings DROP COLUMN name
 		</rollback>
 	</changeSet>
 
-	<changeSet author="ivan" id="01042016--08-4">
+	<changeSet author="ivan" id="01042016--16-4">
 		<sql>
-			ALTER TABLE users ADD COLUMN salt VARCHAR(128)
+			ALTER TABLE system_settings ADD COLUMN value INTEGER
 		</sql>
 		<rollback>
-			ALTER TABLE users DROP COLUMN salt
+			ALTER TABLE system_settings DROP COLUMN value
 		</rollback>
 	</changeSet>
-
-	<changeSet author="ivan" id="01042016--08-5">
-		<sql>
-			ALTER TABLE users ADD COLUMN passhash VARCHAR(128)
-		</sql>
-		<rollback>
-			ALTER TABLE users DROP COLUMN passhash
-		</rollback>
-	</changeSet>
-
+	
 </databaseChangeLog>
