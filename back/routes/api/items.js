@@ -3,12 +3,16 @@
 const express = require('express');
 const router = express.Router();
 const log = require('../../libs/log')(module);
+const HttpError = require('../../libs/error').HttpError;
 
 const itemModel = require('../../models/postgre/item');
 const itemService = require('../../services/item')();
 
 router.use(function(req, res, next) {
     log.info('api items root router has been called');
+
+    //req.session.number = req.session.number + 1 || 1;
+    //console.log(req.session.number);
 
     next();
 });
@@ -41,7 +45,7 @@ router.get('/:id', function(req, res, next) {
         res.send("" + dbResult);
     }, function onRejected(err){
 
-        next(err);
+        next(new HttpError(500, 'Data access level error', true));
 
         //res.send("" + err);
     });

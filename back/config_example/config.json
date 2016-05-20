@@ -1,6 +1,7 @@
 {
   "port": 3000,
   "postgreConnectionString":"postgres://postgres:pg1@localhost:5432/engin",
+  "mongoConnectionString":"mongodb://localhost:27017/engine",
   "env":"development",
   "jsxEngine":{
     "options":{
@@ -9,5 +10,14 @@
     "layoutsDest":"./back/layouts",
     "enginName": "jade"
   },
-  "faviconPath": "./front/favicon.ico"
+  "session":{
+    "secret": "tarampampam",
+    "key": "sid",
+    "cookie":{
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": null
+    }
+  },
+  "faviconPath": "./favicon.ico"
 }

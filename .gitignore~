@@ -1,8 +1,0 @@
-/node_modules/
-/bower_components/
-/back/config/
-/liquibase/run.bat
-/.idea/
-/www/
-/engine.sublime-project
-/engine.sublime-workspace

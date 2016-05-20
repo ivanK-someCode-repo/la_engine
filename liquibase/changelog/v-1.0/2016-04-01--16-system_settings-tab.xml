@@ -5,42 +5,42 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-  	<changeSet author="ivan" id="01042016--03-1">
+	<changeSet author="ivan" id="01042016--16-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS tags (
+			CREATE TABLE IF NOT EXISTS system_settings (
 				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE tags
-		</rollback>
-	</changeSet>
-  
-	<changeSet author="ivan" id="01042016--03-2">
-		<sql>
-			ALTER TABLE tags ADD CONSTRAINT tags_pkey PRIMARY KEY (id)
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP CONSTRAINT tags_pkey
-		</rollback>
-	</changeSet>
-	
-	<changeSet author="ivan" id="01042016--03-3">
-		<sql>
-			ALTER TABLE tags ADD COLUMN code INTEGER
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP COLUMN code
-		</rollback>
-	</changeSet>
-  
-	<changeSet author="ivan" id="01042016--03-4">
-		<sql>
-			ALTER TABLE tags ADD COLUMN name VARCHAR(256)
-		</sql>
-		<rollback>
-			ALTER TABLE tags DROP COLUMN name
+			DROP TABLE system_settings
 		</rollback>
 	</changeSet>
 
+	<changeSet author="ivan" id="01042016--16-2">
+		<sql>
+			ALTER TABLE system_settings ADD CONSTRAINT system_settings_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE system_settings DROP CONSTRAINT system_settings_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--16-3">
+		<sql>
+			ALTER TABLE system_settings ADD COLUMN name VARCHAR(256)
+		</sql>
+		<rollback>
+			ALTER TABLE system_settings DROP COLUMN name
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--16-4">
+		<sql>
+			ALTER TABLE system_settings ADD COLUMN value INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE system_settings DROP COLUMN value
+		</rollback>
+	</changeSet>
+	
 </databaseChangeLog>

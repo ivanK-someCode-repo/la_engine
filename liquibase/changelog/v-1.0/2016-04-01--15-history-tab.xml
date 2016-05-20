@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="ivan" id="01042016--15-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS history (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE history
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--15-2">
+		<sql>
+			ALTER TABLE history ADD CONSTRAINT history_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE history DROP CONSTRAINT history_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--15-3">
+		<sql>
+			ALTER TABLE history ADD COLUMN datetime TIMESTAMP WITH TIME ZONE
+		</sql>
+		<rollback>
+			ALTER TABLE history DROP COLUMN datetime
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--15-4">
+		<sql>
+			ALTER TABLE history ADD COLUMN user_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE history DROP COLUMN user_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--15-5">
+		<sql>
+			ALTER TABLE history ADD COLUMN action_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE history DROP COLUMN action_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--15-6">
+		<sql>
+			ALTER TABLE history ADD COLUMN action_subject_id INTEGER
+		</sql>
+		<rollback>
+			ALTER TABLE history DROP COLUMN action_subject_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--15-7">
+		<sql>
+			ALTER TABLE history ADD COLUMN subject_values JSON
+		</sql>
+		<rollback>
+			ALTER TABLE history DROP COLUMN subject_values
+		</rollback>
+	</changeSet>
+	
+</databaseChangeLog>

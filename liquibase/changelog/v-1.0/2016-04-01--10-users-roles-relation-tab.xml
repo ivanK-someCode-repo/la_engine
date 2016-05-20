@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="ivan" id="01042016--10-1">
+		<sql>
+			CREATE TABLE IF NOT EXISTS users_roles (
+				id SERIAL
+			)
+		</sql>
+		<rollback>
+			DROP TABLE users_roles
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--10-2">
+		<sql>
+			ALTER TABLE users_roles ADD CONSTRAINT users_roles_pkey PRIMARY KEY (id)
+		</sql>
+		<rollback>
+			ALTER TABLE users_roles DROP CONSTRAINT users_roles_pkey
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--10-3">
+		<sql>
+			ALTER TABLE users_roles ADD COLUMN user_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE users_roles DROP COLUMN user_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--10-4">
+		<sql>
+			ALTER TABLE users_roles ADD COLUMN role_id INTEGER NOT NULL
+		</sql>
+		<rollback>
+			ALTER TABLE users_roles DROP COLUMN role_id
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--10-5">
+		<sql>
+			ALTER TABLE users_roles ADD CONSTRAINT users_roles_items_fk FOREIGN KEY (user_id) REFERENCES items (id);
+		</sql>
+		<rollback>
+			ALTER TABLE users_roles DROP CONSTRAINT users_roles_items_fk
+		</rollback>
+	</changeSet>
+
+	<changeSet author="ivan" id="01042016--10-6">
+		<sql>
+			ALTER TABLE users_roles ADD CONSTRAINT users_roles_roles_fk FOREIGN KEY (role_id) REFERENCES roles (id);
+		</sql>
+		<rollback>
+			ALTER TABLE users_roles DROP CONSTRAINT users_roles_roles_fk
+		</rollback>
+	</changeSet>
+	
+</databaseChangeLog>

@@ -5,43 +5,51 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 		http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<!-- tags_types -->
-	<changeSet author="ivan" id="01042016--05-1">
+	<changeSet author="ivan" id="01042016--09-1">
 		<sql>
-			CREATE TABLE IF NOT EXISTS tags_types (
+			CREATE TABLE IF NOT EXISTS roles (
 				id SERIAL
 			)
 		</sql>
 		<rollback>
-			DROP TABLE tags_types
+			DROP TABLE users
 		</rollback>
 	</changeSet>
-	
-	<changeSet author="ivan" id="01042016--05-2">
+
+	<changeSet author="ivan" id="01042016--09-2">
 		<sql>
-			ALTER TABLE tags_types ADD CONSTRAINT tags_types_pkey PRIMARY KEY (id)
+			ALTER TABLE roles ADD CONSTRAINT roles_pkey PRIMARY KEY (id)
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types DROP CONSTRAINT tags_types_pkey
+			ALTER TABLE roles DROP CONSTRAINT roles_pkey
 		</rollback>
 	</changeSet>
-	
-		<changeSet author="ivan" id="01042016--05-3">
+
+	<changeSet author="ivan" id="01042016--09-3">
 		<sql>
-			ALTER TABLE tags_types ADD COLUMN code INTEGER
+			ALTER TABLE roles ADD COLUMN code INTEGER
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types DROP COLUMN code
+			ALTER TABLE roles DROP COLUMN code
 		</rollback>
 	</changeSet>
-	
-	<changeSet author="ivan" id="01042016--05-4">
+
+	<changeSet author="ivan" id="01042016--09-4">
 		<sql>
-			ALTER TABLE tags_types ADD COLUMN name VARCHAR(4000)
+			ALTER TABLE roles ADD COLUMN name VARCHAR(256)
 		</sql>
 		<rollback>
-			ALTER TABLE tags_types DROP COLUMN name
+			ALTER TABLE roles DROP COLUMN name
 		</rollback>
 	</changeSet>
-  
+
+	<changeSet author="ivan" id="01042016--09-5">
+		<sql>
+			ALTER TABLE roles ADD COLUMN description VARCHAR(256)
+		</sql>
+		<rollback>
+			ALTER TABLE roles DROP COLUMN description
+		</rollback>
+	</changeSet>
+
 </databaseChangeLog>
