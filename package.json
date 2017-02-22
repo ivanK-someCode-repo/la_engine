@@ -13,7 +13,6 @@
     "browser-sync": "",
     "browserify": "",
     "del": "",
-    "express-session": "^1.13.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-add-src": "",
     "gulp-concat": "",
@@ -36,8 +35,8 @@
   },
   "dependencies": {
     "async": "",
-    "body-parser": "",
     "connect-mongodb": "^1.1.5",
+	"body-parser": "",
     "cookie-parser": "",
     "express": "",
     "express-session": "",
